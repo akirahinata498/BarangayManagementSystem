@@ -8,8 +8,10 @@ public abstract class RegisterSystem<T extends Users<T>> extends Authentication<
     }
 
     public void registerUser(Scanner scan, T userRegister) {
-        System.out.print("Enter your name: ");
-        
+
+        System.out.print("Enter your username: ");
+        userRegister.setUsername(scan.nextLine());
+        System.out.println("Enter your email: ");
     }
 
 

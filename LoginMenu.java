@@ -2,10 +2,10 @@ package BarangayManagementSystem;
 
 import java.util.Scanner;
 
-public class MainMenu implements Menu{
+public class LoginMenu implements Menu{
 
     @Override
-    public void displayMenu(Scanner scan) {
+    public void displayMenu() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
     }
@@ -15,5 +15,5 @@ public class MainMenu implements Menu{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'handleInputs'");
     }
-
+    
 }
