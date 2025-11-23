@@ -1,6 +1,6 @@
 package BarangayManagementSystem;
 
-public class Residents<T extends Users<T>> extends Users<T>{
+public class Residents extends Users<Residents>{
     private String completeAddress; //in the address we can create an address object here for the user
     private int age;
     private String gender;
@@ -11,17 +11,28 @@ public class Residents<T extends Users<T>> extends Users<T>{
     private String civilStatus;
     private String dateOfBirth;
 
-    Residents(String username, String password, String email, String district, String role, String completeAddress, int age, String gender, String fname, String mname, String lname, String contactNumber, String civilStatus, String dateOfBirth) {
+    Residents(String username, String password, String email, String district, String role) {
        super(username, password, email, district, role);
-       this.completeAddress = completeAddress;
-       this.age = age;
-       this.gender = gender;
-       this.fname = fname;
-       this.mname = mname;
-       this.lname = lname;
-       this.contactNumber = contactNumber;
-       this.civilStatus = civilStatus;
-       this.dateOfBirth = dateOfBirth;
+    //    this.completeAddress = completeAddress;
+    //    this.age = age;
+    //    this.gender = gender;
+    //    this.fname = fname;
+    //    this.mname = mname;
+    //    this.lname = lname;
+    //    this.contactNumber = contactNumber;
+    //    this.civilStatus = civilStatus;
+    //    this.dateOfBirth = dateOfBirth;
+    }
+    Residents(Users<Residents> userBasicInfo, String completeAddress, int age, String gender, String fname, String mname, String lname, String contactNumber, String civilStatus, String dateOfBirth) {
+        super(userBasicInfo.getUsername(), userBasicInfo.getPassword(), userBasicInfo.getEmail(), userBasicInfo.getDistrict(), userBasicInfo.getRole());
+        setCompleteAddress(completeAddress);
+        setAge(age);
+        setFname(fname);
+        setMname(mname);
+        setLname(lname);
+        setContactNumber(contactNumber);
+        setCivilStatus(civilStatus);
+        setDateOfBirth(dateOfBirth);
     }
 
     //getters

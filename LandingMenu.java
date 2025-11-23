@@ -14,19 +14,22 @@ public class LandingMenu implements Menu{
     }
 
     @Override
-    public void handleInputs(Scanner scan) {
-
+    public void chooseMenu(Scanner scan)  {
+        boolean isRunning = true;
+        
         try {
             int choose = scan.nextInt();
             LoginMenu loginMenu = new LoginMenu();
             RegisterMenu registerMenu = new RegisterMenu();
             switch (choose) {
-                // case 1 -> 
-                // case 2 ->
-                default:
+                case 1 -> loginMenu.processMenu(scan); 
+                case 2 -> registerMenu.processMenu(scan);
+                default -> System.out.println("Please enter only from the choices given");
             }
         }catch(InputMismatchException e) {
             e.printStackTrace();
         }
     }
+
+
 }

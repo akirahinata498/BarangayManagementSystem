@@ -13,27 +13,36 @@ public abstract class Authentication<T extends Users<T>> extends Users<T> {
     public void login(Scanner scan) {
         
     }
-    public String hashPassword(String password) { 
-        		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] encodedhash = digest.digest(password.getBytes());
-			StringBuilder hexstring = new StringBuilder();
-			for (byte b : encodedhash) {
-				String hex = Integer.toHexString(0xff & b);
-				if (hex.length() == 1 ) hexstring.append('0');
-				hexstring.append(hex);
+
+
+    public String validatePassword(Scanner scan) {
+		boolean isRunning = true;
+		String password = "";
+		while (isRunning) {
+			System.out.println("Enter your password: ");
+			password = scan.nextLine();
+			if (!password.matches("[a-zA-Z0-9]+@[0-9]+")) {
+				System.out.println("Please enter a proper password format");
 			}
-			return hexstring.toString();
-		}catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Error: SHA-256 Algorithm not found", e);
+			else {
+				isRunning = false;
+			}
 		}
+        return password;
     }
-
-
-    public boolean validatePassword(String passsword) {
-        return false;
-    }
-    public boolean validateEmail(String email) {
-        return false;
+    public String validateEmail(Scanner scan) {
+		boolean isRunning = true;
+		String email = "";
+		while (isRunning) {
+			System.out.println("Enter your email: ");
+			email = scan.nextLine();
+			if (!email.matches("^[a-zA-Z0-9]+@[a-zA-Z0-9]+mail\\.com$")) {
+				System.out.println("Please enter a proper email format");
+			}
+			else {
+				isRunning = false;
+			}
+		}
+        return email;
     }
 }

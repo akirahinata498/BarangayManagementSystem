@@ -14,18 +14,16 @@ public class RegisterMenu implements Menu {
     }
 
     @Override
-    public Menu handleInputs(Scanner scan) {
+    public void chooseMenu(Scanner scan) {
         int userInputs = scan.nextInt();
+        AdminRegister<Admin> adminRegister = new AdminRegister<>(null);
+        ResidentRegister<Residents> residentRegister = new ResidentRegister<>(null);
         // switch (userInputs) {
            
         // }
     }
 
-    @Override
-    public void processMenu() {
-        displayMenu();
-        Menu menu = 
-    }
+
 
 
     

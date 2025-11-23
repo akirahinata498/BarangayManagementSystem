@@ -1,6 +1,6 @@
 package BarangayManagementSystem;
 
-public class Admin<T extends Users<T>> extends Users<T>{
+public class Admin extends Users<Admin>{
     private String accessLevel;
     Admin(String username, String password, String email, String district, String accessLevel, String role) {
         super(username, password, email, district, role);
