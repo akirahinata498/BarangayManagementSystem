@@ -1,8 +1,11 @@
 package BarangayManagementSystem;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-public class LandingMenu implements Menu{
-
+public class LandingMenu extends BaseMenu{
+    private UsersManager usersManager;
+    LandingMenu(UsersManager usersManager) {
+        this.usersManager = usersManager;
+    }
     @Override
     public void displayMenu() {
                System.out.println("****************************************");
@@ -14,21 +17,22 @@ public class LandingMenu implements Menu{
     }
 
     @Override
-    public void chooseMenu(Scanner scan)  {
-        boolean isRunning = true;
-        
+    public boolean chooseMenu(Scanner scan)  {
+     
+     
         try {
             int choose = scan.nextInt();
-            LoginMenu loginMenu = new LoginMenu();
             RegisterMenu registerMenu = new RegisterMenu();
             switch (choose) {
-                case 1 -> loginMenu.processMenu(scan); 
+                // case 1 -> usersManager.loginUser(scan); 
                 case 2 -> registerMenu.processMenu(scan);
+                case 3 -> {return false;}
                 default -> System.out.println("Please enter only from the choices given");
             }
         }catch(InputMismatchException e) {
             e.printStackTrace();
         }
+      return true;
     }
 
 

@@ -5,13 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
 
-public abstract class Users<T extends Users<T>> {
+public abstract class Users {
     private String username;
     private String password;
     private String email;
     private String district;
     private String role;
-    private LinkedList<T> users = new LinkedList<>();   
+
     Users(String username, String password, String email, String district, String role) {
         setUsername(username);
         setPassword(password);
@@ -57,12 +57,13 @@ public abstract class Users<T extends Users<T>> {
         this.role = role;
     }
 
-    public LinkedList<T> getUsers() {
-        return users;
+    @Override 
+    public String toString() {
+        return "Usermmae: " + getUsername() + "\n" +
+               "Email: " + getEmail() + "\n" +
+               "District: " + getDistrict();  
     }
-    public void setUsers(LinkedList<T> users) {
-        this.users = users; 
-    }
+
         private String hashPassword(String password) { 
         		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");

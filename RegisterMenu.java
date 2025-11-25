@@ -2,8 +2,9 @@ package BarangayManagementSystem;
 
 import java.util.Scanner;
 
-public class RegisterMenu implements Menu {
+public class RegisterMenu extends BaseMenu {
 
+    
     @Override
     public void displayMenu() {
        System.out.println("=== Register ===");
@@ -14,17 +15,18 @@ public class RegisterMenu implements Menu {
     }
 
     @Override
-    public void chooseMenu(Scanner scan) {
+    public boolean chooseMenu(Scanner scan) {
         int userInputs = scan.nextInt();
-        AdminRegister<Admin> adminRegister = new AdminRegister<>(null);
-        ResidentRegister<Residents> residentRegister = new ResidentRegister<>(null);
-        // switch (userInputs) {
-           
-        // }
+         AdminRegister adminRegister = new AdminRegister();
+        Admin admin = new Admin();
+        ResidentRegister residentRegister = new ResidentRegister();
+        Residents residents = new Residents();
+        switch (userInputs) {
+           case 1 -> adminRegister.registerUser(scan, admin, "Admin");
+           case 2 -> residentRegister.registerUser(scan, residents, "Residents");
+           case 3 -> {return false;}
+           default -> System.out.println("Please enter only from the choices given");
+            }
+        return true;
     }
-
-
-
-
-    
 }

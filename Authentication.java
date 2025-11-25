@@ -1,10 +1,9 @@
 package BarangayManagementSystem;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.Scanner;
 
-public abstract class Authentication<T extends Users<T>> extends Users<T> {
+public abstract class Authentication<T extends Users> extends Users {
     
 
     public Authentication(){ 

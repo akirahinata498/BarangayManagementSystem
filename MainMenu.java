@@ -2,18 +2,17 @@ package BarangayManagementSystem;
 
 import java.util.Scanner;
 
-public class MainMenu implements Menu{
+public class MainMenu extends BaseMenu{
+
 
     @Override
-    public void displayMenu(Scanner scan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
+    public void displayMenu() {
+
     }
 
     @Override
-    public void handleInputs(Scanner scan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleInputs'");
+    public boolean chooseMenu(Scanner scan) {
+        return true;
     }
 
 }

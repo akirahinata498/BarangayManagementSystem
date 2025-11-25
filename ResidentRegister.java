@@ -1,9 +1,8 @@
 package BarangayManagementSystem;
 
-import java.util.LinkedList;
 import java.util.Scanner;
 
-public class ResidentRegister<T extends Users<Residents>> extends RegisterSystem<Residents, ResidentMenu>{
+public class ResidentRegister extends RegisterSystem<Residents, ResidentMenu>{
     
     // private String completeAddress; //in the address we can create an address object here for the user
     // private int age;
@@ -15,11 +14,8 @@ public class ResidentRegister<T extends Users<Residents>> extends RegisterSystem
     // private String civilStatus;
     // private String dateOfBirth;
 
-    public ResidentRegister(UsersManager<Residents> userManager) {
-        super(userManager);
-    }
 
-    public Residents registerUser(Scanner scan, Residents userRegister, String role) {
+    public void registerUser(Scanner scan, Residents userRegister, String role) {
         super.registerUser(scan, userRegister, role);
         System.out.print("Enter your complete address: ");
         userRegister.setCompleteAddress(scan.nextLine());
@@ -33,7 +29,8 @@ public class ResidentRegister<T extends Users<Residents>> extends RegisterSystem
         userRegister.setLname(scan.nextLine());
         userRegister.setContactNumber(validateContactNumber(scan));
         userRegister.setDateOfBirth(validateDateOfBirth(scan));
-        return userRegister;
+           ResidentMenu residentMenu = new ResidentMenu();
+            saveUser(scan, userRegister, residentMenu);
     }
 
     public String validateGender(Scanner scan) {
@@ -86,6 +83,7 @@ public class ResidentRegister<T extends Users<Residents>> extends RegisterSystem
             isRunning = false;
         }
         }
+        scan.nextLine();
         return age;
     }
 

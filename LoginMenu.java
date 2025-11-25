@@ -1,19 +1,27 @@
-package BarangayManagementSystem;
+// package BarangayManagementSystem;
 
-import java.util.Scanner;
+// import java.util.Scanner;
 
-public class LoginMenu implements Menu{
+// public class LoginMenu exstend Menu{
 
-    @Override
-    public void displayMenu() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayMenu'");
-    }
+//     @Override
+//     public void displayMenu() {
+//        System.out.println("=== Login ===");
+//        System.out.println("1 - Admin");
+//        System.out.println("2 - Residents");
+//        System.out.println("3 - Exit");
+//     }
 
-    @Override
-    public void handleInputs(Scanner scan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleInputs'");
-    }
+//     @Override
+//     public boolean chooseMenu(Scanner scan) {
+//        boolean isRunning = true;
+//        while (isRunning) {
+//         int userChoice = scan.nextInt();
+        
+//        }
+//        return true;
+//     }
+
+
     
-}
+// }

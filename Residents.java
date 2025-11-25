@@ -1,6 +1,6 @@
 package BarangayManagementSystem;
 
-public class Residents extends Users<Residents>{
+public class Residents extends Users{
     private String completeAddress; //in the address we can create an address object here for the user
     private int age;
     private String gender;
@@ -23,7 +23,7 @@ public class Residents extends Users<Residents>{
     //    this.civilStatus = civilStatus;
     //    this.dateOfBirth = dateOfBirth;
     }
-    Residents(Users<Residents> userBasicInfo, String completeAddress, int age, String gender, String fname, String mname, String lname, String contactNumber, String civilStatus, String dateOfBirth) {
+    Residents(Users userBasicInfo, String completeAddress, int age, String gender, String fname, String mname, String lname, String contactNumber, String civilStatus, String dateOfBirth) {
         super(userBasicInfo.getUsername(), userBasicInfo.getPassword(), userBasicInfo.getEmail(), userBasicInfo.getDistrict(), userBasicInfo.getRole());
         setCompleteAddress(completeAddress);
         setAge(age);
@@ -33,6 +33,8 @@ public class Residents extends Users<Residents>{
         setContactNumber(contactNumber);
         setCivilStatus(civilStatus);
         setDateOfBirth(dateOfBirth);
+    }
+    Residents() {
     }
 
     //getters
@@ -92,6 +94,20 @@ public class Residents extends Users<Residents>{
     }
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+
+    @Override
+    public String toString() {
+        return "First Name: " + getFname() + "\n" + 
+               "Middle Name: " + getMname() + "\n" + 
+               "Last Name: " + getLname() + "\n" + 
+               super.toString() + "\n" + 
+               "Gender: " + getGender() + "\n" + 
+               "Complete Address" + getCompleteAddress() + "\n" +
+               "Contact Number: " + getContactNumber() + "\n" + 
+               "Civil Status: " + getCivilStatus() + "\n" + 
+               "Date of Birth: " + getDateOfBirth() + "\n";
     }
 
 }

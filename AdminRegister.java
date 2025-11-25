@@ -2,15 +2,14 @@ package BarangayManagementSystem;
 
 import java.util.Scanner;
 
-public class AdminRegister<T extends Users<Admin>> extends RegisterSystem<Admin, AdminMenu>{
-        public AdminRegister(UsersManager<Admin> userManager) {
-        super(userManager);
+public class AdminRegister extends RegisterSystem<Admin, AdminMenu>{
 
-    }
 
-        public void registerUser(Scanner scan, Admin userRegister) {
-        System.out.print("Enter your name: ");
-        
+        public void registerUser(Scanner scan, Admin userRegister, String role) {
+            super.registerUser(scan, userRegister, role);
+            userRegister.setAccessLevel("Admin");
+            AdminMenu adminMenu = new AdminMenu();
+            saveUser(scan, userRegister, adminMenu);
     }
 
 }
