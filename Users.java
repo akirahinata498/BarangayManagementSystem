@@ -11,13 +11,14 @@ public abstract class Users {
     private String email;
     private String district;
     private String role;
-
+    private UsersManager userManager  = UsersManager.getInstance();
     Users(String username, String password, String email, String district, String role) {
         setUsername(username);
         setPassword(password);
         setEmail(email);
         setDistrict(district);
         setRole(role);
+        
     }
 
     Users() {
@@ -45,7 +46,7 @@ public abstract class Users {
         this.username=  username;
     }
     public void setPassword(String password) {
-        this.password = hashPassword(password);
+        this.password = userManager.hashPassword(password);
     }
     public void setEmail(String email) {
         this.email = email;
@@ -64,20 +65,6 @@ public abstract class Users {
                "District: " + getDistrict();  
     }
 
-        private String hashPassword(String password) { 
-        		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] encodedhash = digest.digest(password.getBytes());
-			StringBuilder hexstring = new StringBuilder();
-			for (byte b : encodedhash) {
-				String hex = Integer.toHexString(0xff & b);
-				if (hex.length() == 1 ) hexstring.append('0');
-				hexstring.append(hex);
-			}
-			return hexstring.toString();
-		}catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Error: SHA-256 Algorithm not found", e);
-		}
-    }
+
 
 }

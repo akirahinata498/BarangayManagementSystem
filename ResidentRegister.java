@@ -28,6 +28,7 @@ public class ResidentRegister extends RegisterSystem<Residents, ResidentMenu>{
         System.out.print("Enter your Last Name: ");
         userRegister.setLname(scan.nextLine());
         userRegister.setContactNumber(validateContactNumber(scan));
+        userRegister.setCivilStatus(validateCivilStatus(scan));
         userRegister.setDateOfBirth(validateDateOfBirth(scan));
            ResidentMenu residentMenu = new ResidentMenu();
             saveUser(scan, userRegister, residentMenu);
@@ -90,6 +91,7 @@ public class ResidentRegister extends RegisterSystem<Residents, ResidentMenu>{
     public String validateCivilStatus(Scanner scan) {
         String civilStatus = "";
         boolean isRunning = true;
+        System.out.println("Testing");
         while (isRunning) {
             System.out.println("S - Single");
             System.out.println("M - Married");

@@ -24,7 +24,7 @@ public class LandingMenu extends BaseMenu{
             int choose = scan.nextInt();
             RegisterMenu registerMenu = new RegisterMenu();
             switch (choose) {
-                // case 1 -> usersManager.loginUser(scan); 
+                case 1 -> usersManager.loginUser(scan); 
                 case 2 -> registerMenu.processMenu(scan);
                 case 3 -> {return false;}
                 default -> System.out.println("Please enter only from the choices given");

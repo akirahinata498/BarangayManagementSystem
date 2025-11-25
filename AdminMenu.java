@@ -69,5 +69,10 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     public void setUserValidation(boolean userValidation) {
         this.userValidation = userValidation;
     }
+    @Override
+    public boolean CheckUserAuth(String username, String password) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'CheckUserAuth'");
+    }
     
 }

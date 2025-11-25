@@ -23,7 +23,7 @@ public class RegisterMenu extends BaseMenu {
         Residents residents = new Residents();
         switch (userInputs) {
            case 1 -> adminRegister.registerUser(scan, admin, "Admin");
-           case 2 -> residentRegister.registerUser(scan, residents, "Residents");
+           case 2 -> residentRegister.registerUser(scan, residents, "Resident");
            case 3 -> {return false;}
            default -> System.out.println("Please enter only from the choices given");
             }
