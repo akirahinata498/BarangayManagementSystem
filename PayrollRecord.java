@@ -1,9 +1,9 @@
 package BarangayManagementSystem;
 
 import java.util.Scanner;
-import java.lang.Thread.State;
+
 import java.time.LocalDate;
-import java.time.Month;
+
 
 public class PayrollRecord extends FinancialRecord{
     private String employeeName;
@@ -11,7 +11,6 @@ public class PayrollRecord extends FinancialRecord{
     private String position;
     private double grossPay;
     private int workingDays;
-    private double companyLoan;
     private double philHealth;
     private double sss;
     private double pagIbig;
@@ -32,7 +31,7 @@ public class PayrollRecord extends FinancialRecord{
         setWorkingDays(workingDays);
         setDailyRate(dailyRate);
         computeGrossPay();
-        setCompanyLoan(getGrossPay());
+    
         setPhilHealth(getGrossPay());
         setSSS(getGrossPay());
         setPagIbig(getGrossPay());
@@ -59,11 +58,12 @@ public class PayrollRecord extends FinancialRecord{
        int workDays = scan.nextInt();
        System.out.print("Daily Rate: ");
        double rate = scan.nextDouble();
+       System.out.println("Enter Company loan Deduct");
        String dateOfTransaction = validation.validateDateOfBirth(scan);
        scan.nextLine();
        System.out.print("Enter the payroll status of user: ");
        String statusUser = scan.nextLine();
-       PayrollRecord payroll = new PayrollRecord(financeID, dateOfTransaction, statusUser, employeeName, id, position, workDays, dailyRate);
+       PayrollRecord payroll = new PayrollRecord(financeID, dateOfTransaction, statusUser, name, id, position, workDays, rate);
        financeManager.addRecord(payroll);
     }
     @Override
@@ -83,9 +83,10 @@ public class PayrollRecord extends FinancialRecord{
 
     }
     public void computeNetPay() {
-        double deductions = getSSS() + getCompanyLoan() + getPhilHealth() + getPagIbig();
+        double deductions = getSSS() + getPhilHealth() + getPagIbig();
         System.out.println("The deductions are " + deductions);
         setTotalCost(getGrossPay() - deductions);
+        System.out.println("While the total netpay are " + getTotalCost());
     }
     public int newCountedRecord() {
         int totalPayrollRecords = 0;
@@ -98,6 +99,8 @@ public class PayrollRecord extends FinancialRecord{
     }
 
     public void computeGrossPay() {
+        System.out.println("The daily rate are " + getDailyRate());
+        System.out.println("The working datys are " + getWorkingDays());
         setGrossPay(getDailyRate() * getWorkingDays());
     }
     
@@ -119,9 +122,6 @@ public String getPosition() {
 }
 public double getGrossPay() {
     return grossPay;
-}
-public double getCompanyLoan() {
-    return companyLoan;
 }
 public double getPhilHealth() {
     return philHealth;
@@ -154,18 +154,16 @@ public void setPosition(String position) {
 public void setGrossPay(double grossPay) {
     this.grossPay = grossPay;
 }
-public void setCompanyLoan(double companyLoan) {
-    this.companyLoan = companyLoan;
-}
+
 
 public void setPhilHealth(double philHealth) {
-    this.philHealth = (philHealth == 0) ? 0 : philHealth * (5/100);
+    this.philHealth = (philHealth == 0) ? 0 : philHealth * (3d/100d);
 }
 public void setSSS(double sss) {
-    this.sss = (sss == 0)  ? 0 : getGrossPay() * (3/100);
+    this.sss = (sss == 0)  ? 0 : (sss * (5d / 100d));
 }
 public void setPagIbig(double pagIbig) {
-    this.pagIbig = (pagIbig == 0) ? 0 : getGrossPay() * (2/100);
+    this.pagIbig = (pagIbig == 0) ? 0 : pagIbig * (2d/100d);
 }
 public void setDailyRate(double dailyRate) {
     this.dailyRate = dailyRate;
@@ -187,8 +185,7 @@ public String toString() {
            "Employee Name: " + getEmployeeName() + "\n" + 
            "Employee Position: " + getPosition() + "\n" + 
            "Employee Daily Rate: " + getDailyRate() + "\n" +
-           "Employee Working Days: " + getWorkingDays() + "\n" + 
-           "Employee Company Loan: " + getCompanyLoan() + "\n" + 
+           "Employee Working Days: " + getWorkingDays() + "\n" +
            "Employee PhilHealth Contribution: " + getPhilHealth() + "\n" + 
            "Employee SSS Contribution: " + getSSS() + "\n" + 
            "Employee Pag-Ibig Contribution: " + getPagIbig() + "\n" + 

@@ -10,7 +10,7 @@ public interface Transparancy {
       System.out.println("2 - Delete Record");
       System.out.println("3 - Edit Record");
       System.out.println("4 - View All Records");
-      System.out.println("4 - Exit");   
+      System.out.println("5 - Exit");   
       int choose = scan.nextInt();
       switch (choose) {
         case 1 -> addRecord(scan);
