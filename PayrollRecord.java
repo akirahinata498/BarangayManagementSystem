@@ -1,6 +1,7 @@
 package BarangayManagementSystem;
 
 import java.util.Scanner;
+import java.lang.Thread.State;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -22,14 +23,12 @@ public class PayrollRecord extends FinancialRecord{
     private Validations validation;
     
 
-    PayrollRecord(String financeID, double totalCost, String transactionType, String dateOfTransaction, String status, String employeeName, String employeeID
-        ,String position, double grossPay, int workingDays, double dailyRate) {
-        super(financeID, transactionType, dateOfTransaction, status);
+    PayrollRecord(String financeID, String dateOfTransaction, String status, String employeeName, String employeeID
+        ,String position,  int workingDays, double dailyRate) {
+        super(financeID, "Payroll", dateOfTransaction, status);
         setEmployeeName(employeeName);
         setEmployeeID(employeeID);
-        setTransactionType("Payroll");
         setPosition(position);
-        setGrossPay(grossPay);
         setWorkingDays(workingDays);
         setDailyRate(dailyRate);
         computeGrossPay();
@@ -57,13 +56,13 @@ public class PayrollRecord extends FinancialRecord{
        System.out.print("Enter Employee Position: ");
        String position = scan.nextLine();
        System.out.print("Enter Number of Working Days: ");
-       int workdaysingDays = scan.nextInt();
+       int workDays = scan.nextInt();
        System.out.print("Daily Rate: ");
        double rate = scan.nextDouble();
-       String dateOfBirth = validation.validateDateOfBirth(scan);
+       String dateOfTransaction = validation.validateDateOfBirth(scan);
        System.out.print("Enter the payroll status of user: ");
        String statusUser = scan.nextLine();
-       PayrollRecord payroll = new PayrollRecord();
+       PayrollRecord payroll = new PayrollRecord(financeID, dateOfTransaction, statusUser, employeeName, id, position, workDays, dailyRate);
        financeManager.addRecord(payroll);
     }
     @Override

@@ -2,10 +2,10 @@ package BarangayManagementSystem;
 import java.util.Scanner;
 public interface Transparancy {
   
-   default void chooseActions(Scanner scan) {
+   default void chooseActions(Scanner scan, String transactionType) {
         boolean isRunning = true;
         while (isRunning) {
-      System.out.println("=== Payroll Record ===");
+      System.out.println("=== " + transactionType + " Record ===");
       System.out.println("1 - Add Record");
       System.out.println("2 - Delete Record");
       System.out.println("3 - Edit Record");

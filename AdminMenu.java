@@ -7,6 +7,10 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private Admin userInfo;
     private boolean userValidation;
     private UserAccountManagement<Admin> userManagement;
+    private PayrollRecord payrollRecord;
+    private ProjectBudgetRecord projectBudgetRecord;
+    private MaintenanceRecord maintenanceRecord;
+    private ProcurementRecord procurementRecord;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
@@ -22,7 +26,8 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
             System.out.println("5 - User & Account Management");
             System.out.println("6 - System Logs");
             System.out.println("7 - System Settings");
-            System.out.println("8 - Logout");
+            System.out.println("8 - Financial Reports");
+            System.out.println("9 - Logout");
     }
 
     @Override
@@ -30,8 +35,8 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
       int userData = scan.nextInt();
       switch (userData) {
         case 5 -> userManagement.chooseUserToManage(scan);
-        // case 5 -> System.out.println("User & account management");
-        case 8 -> {return isuserLogout(scan);}
+        case 8 -> ManageFinancialRecording(scan);
+        case 9 -> {return isuserLogout(scan);}
         default -> System.out.println("Please enter a proper input");
       }
       return true;
@@ -62,6 +67,28 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
             }
         }
     }
+
+    private void ManageFinancialRecording(Scanner scan) {
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("=== Enter Record ===");
+            System.out.println("1 - Payroll Record");
+            System.out.println("2 - Maintenance Record");
+            System.out.println("3 - Project Budget Record");
+            System.out.println("4 - Procurement Record");
+            System.out.println("5 - Exit");
+            int chooseRecprd = scan.nextInt();
+            switch (chooseRecprd) {
+                case 1 -> payrollRecord.chooseActions(scan, "Payroll");
+                case 2 -> maintenanceRecord.chooseActions(scan, "Maintenance");
+                case 3 -> projectBudgetRecord.chooseActions(scan, "Project");
+                case 4 -> procurementRecord.chooseActions(scan, "Procurement");
+                case 5 -> isRunning = false;
+                default -> System.out.println("Invalid Input, Please enter a proper input");
+            }   
+        }
+    }
+
     @Override
     public void setUserInfo(Admin userInfo) {
         this.userInfo = userInfo;

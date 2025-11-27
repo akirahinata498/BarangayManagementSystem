@@ -4,11 +4,7 @@ import java.util.Scanner;
 
 public class MaintenanceRecord extends FinancialRecord{
 
-    @Override
-    public void chooseActions(Scanner scan) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'chooseActions'");
-    }
+  
 
     @Override
     public void addRecord(Scanner scan) {
