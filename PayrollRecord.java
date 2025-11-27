@@ -47,7 +47,7 @@ public class PayrollRecord extends FinancialRecord{
 
     @Override
     public void addRecord(Scanner scan) {
-
+        scan.nextLine();
        String financeID = "PAY-" + year + "-" + String.format("%05d", newCountedRecord());
        System.out.print("Enter Employee Name: ");
        String name = scan.nextLine();
@@ -60,6 +60,7 @@ public class PayrollRecord extends FinancialRecord{
        System.out.print("Daily Rate: ");
        double rate = scan.nextDouble();
        String dateOfTransaction = validation.validateDateOfBirth(scan);
+       scan.nextLine();
        System.out.print("Enter the payroll status of user: ");
        String statusUser = scan.nextLine();
        PayrollRecord payroll = new PayrollRecord(financeID, dateOfTransaction, statusUser, employeeName, id, position, workDays, dailyRate);
@@ -71,7 +72,11 @@ public class PayrollRecord extends FinancialRecord{
     }
     @Override
     public void viewAllRecord(Scanner scan) {
-       
+       for (FinancialRecord records : financeManager.getAllRecords()) {
+        if (records instanceof PayrollRecord payrollRecord) {
+            System.out.println(payrollRecord.toString());
+        }
+       }
     }
     @Override
     public void editRecord(Scanner scan)  {
@@ -79,7 +84,7 @@ public class PayrollRecord extends FinancialRecord{
     }
     public void computeNetPay() {
         double deductions = getSSS() + getCompanyLoan() + getPhilHealth() + getPagIbig();
-        System.out.println(deductions);
+        System.out.println("The deductions are " + deductions);
         setTotalCost(getGrossPay() - deductions);
     }
     public int newCountedRecord() {
@@ -165,7 +170,30 @@ public void setPagIbig(double pagIbig) {
 public void setDailyRate(double dailyRate) {
     this.dailyRate = dailyRate;
 }
+    // private String employeeName;
+    // private String emeployeeID;
+    // private String position;
+    // private double grossPay;
+    // private int workingDays;
+    // private double companyLoan;
+    // private double philHealth;
+    // private double sss;
+    // private double pagIbig;
+    // private double dailyRate;
 
+@Override
+public String toString() {
+    return "Employee ID: " + getEmployeeID() + "\n" +
+           "Employee Name: " + getEmployeeName() + "\n" + 
+           "Employee Position: " + getPosition() + "\n" + 
+           "Employee Daily Rate: " + getDailyRate() + "\n" +
+           "Employee Working Days: " + getWorkingDays() + "\n" + 
+           "Employee Company Loan: " + getCompanyLoan() + "\n" + 
+           "Employee PhilHealth Contribution: " + getPhilHealth() + "\n" + 
+           "Employee SSS Contribution: " + getSSS() + "\n" + 
+           "Employee Pag-Ibig Contribution: " + getPagIbig() + "\n" + 
+           "Employee Net Pay: " + getTotalCost(); 
+}
 
 
 }

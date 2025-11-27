@@ -14,7 +14,10 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
-        // admin = usersManager.
+        this.payrollRecord = new PayrollRecord();
+        this.projectBudgetRecord = new ProjectBudgetRecord();
+        this.maintenanceRecord = new MaintenanceRecord();
+        this.procurementRecord = new ProcurementRecord();
     }
     @Override
     public void displayMenu() {
