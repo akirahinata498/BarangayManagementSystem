@@ -1,8 +1,8 @@
 package BarangayManagementSystem;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
+// import java.security.MessageDigest;
+// import java.security.NoSuchAlgorithmException;
+// import java.util.LinkedList;
 
 
 public abstract class Users {

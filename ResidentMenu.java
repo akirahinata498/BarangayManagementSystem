@@ -6,6 +6,7 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     private UsersManager usersManager;
     private Residents userInfo;
     private boolean userValidation;
+    
     ResidentMenu() {
         this.usersManager = UsersManager.getInstance();
     }
@@ -13,18 +14,21 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     public void displayMenu() {
         
        System.out.println("=== Welcome " + userInfo.getUsername() + " ===");
-       System.out.println("1 - print test ");
-       System.out.println("2 - practice");
-       System.out.println("3 - practice");
-       System.out.println("4 - Exit");
-    }   
+        System.out.println("1 - View Profile");
+        System.out.println("2 - Update Profile");
+        System.out.println("3 - Request Certificate");
+        System.out.println("4 - View my Certificate Request");
+        System.out.println("5 - View Barangay Announcemments");
+        System.out.println("6 - Submit Incident Report (Blotter)");
+        System.out.println("7 - Logout");
+    }
 
     @Override
     public boolean chooseMenu(Scanner scan) {
         int userChoice = scan.nextInt();
         switch (userChoice) {
             
-            case  4 -> {return false;}
+            case  7 -> {return isuserLogout(scan);}
             default -> System.out.println("Please enter a proper input");
         }
         return true;
@@ -61,10 +65,9 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     }
     @Override
     public void CheckUserAuth(Residents userCheck) {
-        System.out.println("This is a test");
+        
         for (Users users : usersManager.getAllUsers()) {
             if (userCheck.getUsername().equals(users.getUsername()) && userCheck.getPassword().equals(users.getPassword())) {
-                System.out.println("Test cgeck");
                 setUserInfo((Residents) users);
                 setUserValidation(true);
             }

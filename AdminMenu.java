@@ -6,25 +6,32 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private UsersManager usersManager;
     private Admin userInfo;
     private boolean userValidation;
+    private UserAccountManagement<Admin> userManagement;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
+        this.userManagement = new UserAccountManagement<>(getUserInfo());
         // admin = usersManager.
     }
     @Override
     public void displayMenu() {
            System.out.println("=== Welcome " + userInfo.getUsername() + " ===");
-      System.out.println("1 - test1");
-      System.out.println("2 - test2");
-      System.out.println("3 - dasdadsa");
-      System.out.println("3 - kndkand");
-      System.out.println("4 - exit");
+            System.out.println("1 - Resident Management");
+            System.out.println("2 - Certificate Management");
+            System.out.println("3 - Announcement Management");
+            System.out.println("4 - Incident Report Management");
+            System.out.println("5 - User & Account Management");
+            System.out.println("6 - System Logs");
+            System.out.println("7 - System Settings");
+            System.out.println("8 - Logout");
     }
 
     @Override
     public boolean chooseMenu(Scanner scan) {
       int userData = scan.nextInt();
       switch (userData) {
-        case 4 -> {return true;}
+        case 5 -> userManagement.chooseUserToManage(scan);
+        // case 5 -> System.out.println("User & account management");
+        case 8 -> {return isuserLogout(scan);}
         default -> System.out.println("Please enter a proper input");
       }
       return true;
@@ -47,10 +54,10 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
 
     @Override
     public void CheckUserAuth(Admin userCheck) {
-        System.out.println("This is a test");
+    
         for (Users users : usersManager.getAllUsers()) {
             if (userCheck.getUsername().equals(users.getUsername()) && userCheck.getPassword().equals(users.getPassword())) {
-                System.out.println("Banzai");
+                 setUserValidation(true);
                 setUserInfo((Admin) users);
             }
         }
@@ -71,8 +78,15 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     }
     @Override
     public boolean CheckUserAuth(String username, String password) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CheckUserAuth'");
+      
+        for (Users users : usersManager.getAllUsers()) {
+            if (users.getUsername().equals(username) && users.getPassword().equals(password)) {
+                setUserInfo((Admin) users);
+                setUserValidation(true);
+                return true;
+            }
+        }
+        return false;
     }
     
 }

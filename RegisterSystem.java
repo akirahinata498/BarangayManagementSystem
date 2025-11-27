@@ -1,6 +1,6 @@
 package BarangayManagementSystem;
 import java.util.Scanner;
-public abstract class RegisterSystem<T extends Users, M extends MenuValidation<T>> extends Authentication<T> {
+public abstract class RegisterSystem<T extends Users, M extends MenuValidation<T>> extends Validations {
   protected UsersManager userManager;
 
     public RegisterSystem() {
@@ -21,7 +21,7 @@ public abstract class RegisterSystem<T extends Users, M extends MenuValidation<T
     public void saveUser(Scanner scan, T registeredUser, M redirectMenu) {
         userManager.addUser(registeredUser);
         redirectMenu.CheckUserAuth(registeredUser);
-        redirectMenu.processMenu(scan);
+        redirectMenu.processMenu(scan); 
     }
 
     // 	public  String userInfoReturn(Users user) {
