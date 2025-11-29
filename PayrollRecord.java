@@ -94,6 +94,7 @@ public class PayrollRecord extends FinancialRecord{
           System.out.println("5 - Enter Working days");
           System.out.println("6 - Daily Rate");
           int choose = scan.nextInt();
+          scan.nextLine();
             switch (choose) {
               case 1 : 
               String editTransactionDate = TransactionDate(scan);
@@ -102,14 +103,17 @@ public class PayrollRecord extends FinancialRecord{
               case 2 :
               System.out.print("Edit Status: ");
               String editStatus = scan.nextLine();
+              userRecord.setStatus(editStatus);
               break;
               case 3 :
                 System.out.print("Edit Employee Name: ");
                 String employeeName = scan.nextLine();
+                userRecord.setEmployeeName(employeeName);
                 break;
               case 4 : 
                 System.out.print("Edit Employee Position: ");
                 String editPosition = scan.nextLine();
+                userRecord.setPosition(editPosition);
                 break;
               case 5 :
                 System.out.print("Edit Edit Working days: ");
@@ -123,7 +127,10 @@ public class PayrollRecord extends FinancialRecord{
                 int editDailyRate = scan.nextInt();
                 userRecord.setDailyRate(editDailyRate);
                 userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
-                // userRecord.computeNetPay(userRecord., choose, editWorkingDays, editDailyRate, userRecord);
+                userRecord.computeNetPay(userRecord.getGrossPay(), userRecord.getSSS(), userRecord.getPhilHealth(), userRecord.getPagIbig(), userRecord);
+                break;
+              default :
+              System.out.println("Invalid Input, Enter only from the choices given");
             }
         }
     }
@@ -131,7 +138,7 @@ public class PayrollRecord extends FinancialRecord{
         payroll.setPhilHealth(getGrossPay());
         payroll.setSSS(getGrossPay());
         payroll.setPagIbig(getGrossPay());
-        double deductions = sss +philHealth + pagIbig;
+        double deductions = payroll.getSSS() + payroll.getPhilHealth() + payroll.getPagIbig();
         System.out.println("The deductions are " + deductions);
         payroll.setTotalCost(grossPay - deductions);
         System.out.println("While the total netpay are " + getTotalCost());
