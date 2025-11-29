@@ -93,6 +93,7 @@ public class PayrollRecord extends FinancialRecord{
           System.out.println("4 - Employee Position");
           System.out.println("5 - Enter Working days");
           System.out.println("6 - Daily Rate");
+          System.out.println("7 - Exit");
           int choose = scan.nextInt();
           scan.nextLine();
             switch (choose) {
@@ -128,6 +129,9 @@ public class PayrollRecord extends FinancialRecord{
                 userRecord.setDailyRate(editDailyRate);
                 userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
                 userRecord.computeNetPay(userRecord.getGrossPay(), userRecord.getSSS(), userRecord.getPhilHealth(), userRecord.getPagIbig(), userRecord);
+                break;
+              case 7 :
+                isRunning = false;
                 break;
               default :
               System.out.println("Invalid Input, Enter only from the choices given");
