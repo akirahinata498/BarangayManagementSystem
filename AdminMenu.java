@@ -8,14 +8,12 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private boolean userValidation;
     private UserAccountManagement<Admin> userManagement;
     private PayrollRecord payrollRecord;
-    private ProjectBudgetRecord projectBudgetRecord;
     private MaintenanceRecord maintenanceRecord;
     private ProcurementRecord procurementRecord;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
         this.payrollRecord = new PayrollRecord();
-        this.projectBudgetRecord = new ProjectBudgetRecord();
         this.maintenanceRecord = new MaintenanceRecord();
         this.procurementRecord = new ProcurementRecord();
     }
@@ -77,16 +75,14 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
             System.out.println("=== Enter Record ===");
             System.out.println("1 - Payroll Record");
             System.out.println("2 - Maintenance Record");
-            System.out.println("3 - Project Budget Record");
-            System.out.println("4 - Procurement Record");
-            System.out.println("5 - Exit");
+            System.out.println("3 - Procurement Record");
+            System.out.println("4 - Exit");
             int chooseRecprd = scan.nextInt();
             switch (chooseRecprd) {
                 case 1 -> payrollRecord.chooseActions(scan, "Payroll");
                 case 2 -> maintenanceRecord.chooseActions(scan, "Maintenance");
-                case 3 -> projectBudgetRecord.chooseActions(scan, "Project");
-                case 4 -> procurementRecord.chooseActions(scan, "Procurement");
-                case 5 -> isRunning = false;
+                case 3 -> procurementRecord.chooseActions(scan, "Procurement");
+                case 4 -> isRunning = false;
                 default -> System.out.println("Invalid Input, Please enter a proper input");
             }   
         }

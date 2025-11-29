@@ -2,8 +2,6 @@ package BarangayManagementSystem;
 
 import java.util.Scanner;
 
-import java.time.LocalDate;
-
 
 public class PayrollRecord extends FinancialRecord{
     private String employeeName;
@@ -16,10 +14,8 @@ public class PayrollRecord extends FinancialRecord{
     private double pagIbig;
     private double dailyRate;
 
-    private LocalDate today = LocalDate.now();
-    private int year = today.getYear();
-    private FinancialRecorderManager financeManager;
-    private Validations validation;
+
+
     
 
     PayrollRecord(String financeID, String dateOfTransaction, String status, String employeeName, String employeeID
@@ -30,17 +26,12 @@ public class PayrollRecord extends FinancialRecord{
         setPosition(position);
         setWorkingDays(workingDays);
         setDailyRate(dailyRate);
-        computeGrossPay();
-    
-        setPhilHealth(getGrossPay());
-        setSSS(getGrossPay());
-        setPagIbig(getGrossPay());
-        computeNetPay();
+        computeGrossPay(getDailyRate(), getWorkingDays(), this);
+        computeNetPay(getGrossPay(), getSSS(), getPhilHealth(), getPagIbig(), this);
     }
 
     PayrollRecord() {
-        this.financeManager = FinancialRecorderManager.getInstance();
-        this.validation = new Validations();
+
     }
 
 
@@ -58,8 +49,7 @@ public class PayrollRecord extends FinancialRecord{
        int workDays = scan.nextInt();
        System.out.print("Daily Rate: ");
        double rate = scan.nextDouble();
-       System.out.println("Enter Company loan Deduct");
-       String dateOfTransaction = validation.validateDateOfBirth(scan);
+       String dateOfTransaction = TransactionDate(scan);
        scan.nextLine();
        System.out.print("Enter the payroll status of user: ");
        String statusUser = scan.nextLine();
@@ -68,7 +58,15 @@ public class PayrollRecord extends FinancialRecord{
     }
     @Override
     public void deleteRecord(Scanner scan) {
- 
+        System.out.print("Enter the Payroll id that you want to delete: ");
+        String deleteID = scan.nextLine();
+        for (FinancialRecord financeRecord : financeManager.getAllRecords()) {
+            if (financeRecord instanceof PayrollRecord && deleteID.equals(financeRecord.getFinanceID())) {
+                financeManager.getAllRecords().remove(financeRecord);
+                System.out.println("Payroll Record Deleted Successfully");
+                break;
+            }
+        }
     }
     @Override
     public void viewAllRecord(Scanner scan) {
@@ -80,30 +78,84 @@ public class PayrollRecord extends FinancialRecord{
     }
     @Override
     public void editRecord(Scanner scan)  {
-
-    }
-    public void computeNetPay() {
-        double deductions = getSSS() + getPhilHealth() + getPagIbig();
-        System.out.println("The deductions are " + deductions);
-        setTotalCost(getGrossPay() - deductions);
-        System.out.println("While the total netpay are " + getTotalCost());
-    }
-    public int newCountedRecord() {
-        int totalPayrollRecords = 0;
-        for (FinancialRecord records : financeManager.getAllRecords()) {
-            if (records instanceof PayrollRecord) {
-                totalPayrollRecords++;
+          scan.nextLine();
+        boolean isRunning = true;
+        while (isRunning) {
+            PayrollRecord userRecord = (PayrollRecord) findRecord(scan);
+            if (userRecord == null) {
+                System.out.println("Invalid Input, ID does not exist");
+                break;
+            }
+          System.out.println("=== Edit Record ===");
+          System.out.println("1 - Transaction Date");
+          System.out.println("2 - Status");
+          System.out.println("3 - Employee Name");
+          System.out.println("4 - Employee Position");
+          System.out.println("5 - Enter Working days");
+          System.out.println("6 - Daily Rate");
+          int choose = scan.nextInt();
+            switch (choose) {
+              case 1 : 
+              String editTransactionDate = TransactionDate(scan);
+              userRecord.setDateOfTransaction(editTransactionDate);
+              break;
+              case 2 :
+              System.out.print("Edit Status: ");
+              String editStatus = scan.nextLine();
+              break;
+              case 3 :
+                System.out.print("Edit Employee Name: ");
+                String employeeName = scan.nextLine();
+                break;
+              case 4 : 
+                System.out.print("Edit Employee Position: ");
+                String editPosition = scan.nextLine();
+                break;
+              case 5 :
+                System.out.print("Edit Edit Working days: ");
+                int editWorkingDays = scan.nextInt();
+                userRecord.setWorkingDays(editWorkingDays);
+                userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
+                userRecord.computeNetPay(userRecord.getGrossPay(), userRecord.getSSS(), userRecord.getPhilHealth(), userRecord.getPhilHealth(), userRecord);
+                break;
+              case 6 :
+                System.out.print("Edit Daily Rate: ");
+                int editDailyRate = scan.nextInt();
+                userRecord.setDailyRate(editDailyRate);
+                userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
+                // userRecord.computeNetPay(userRecord., choose, editWorkingDays, editDailyRate, userRecord);
             }
         }
-        return totalPayrollRecords++;
+    }
+    public void computeNetPay(double grossPay, double sss, double philHealth, double pagIbig, PayrollRecord payroll) {
+        payroll.setPhilHealth(getGrossPay());
+        payroll.setSSS(getGrossPay());
+        payroll.setPagIbig(getGrossPay());
+        double deductions = sss +philHealth + pagIbig;
+        System.out.println("The deductions are " + deductions);
+        payroll.setTotalCost(grossPay - deductions);
+        System.out.println("While the total netpay are " + getTotalCost());
     }
 
-    public void computeGrossPay() {
-        System.out.println("The daily rate are " + getDailyRate());
-        System.out.println("The working datys are " + getWorkingDays());
-        setGrossPay(getDailyRate() * getWorkingDays());
+
+    public void computeGrossPay(double dailyRate, int workingDays, PayrollRecord payroll) {
+        System.out.println("The daily rate are " + dailyRate);
+        System.out.println("The working datys are " + workingDays);
+        payroll.setGrossPay(dailyRate * workingDays);
     }
     
+
+    public FinancialRecord findRecord(Scanner scan) {
+      
+            System.out.print("Enter the Payroll ID of user that you want to edit: ");
+            String findRecord = scan.nextLine();
+            for (FinancialRecord records : financeManager.getAllRecords()) {
+                if (records instanceof PayrollRecord && findRecord.equals(records.getFinanceID())) {
+                    return records;
+                }
+            }
+            return null;
+    }   
 
     
 
@@ -168,28 +220,23 @@ public void setPagIbig(double pagIbig) {
 public void setDailyRate(double dailyRate) {
     this.dailyRate = dailyRate;
 }
-    // private String employeeName;
-    // private String emeployeeID;
-    // private String position;
-    // private double grossPay;
-    // private int workingDays;
-    // private double companyLoan;
-    // private double philHealth;
-    // private double sss;
-    // private double pagIbig;
-    // private double dailyRate;
+
 
 @Override
 public String toString() {
-    return "Employee ID: " + getEmployeeID() + "\n" +
+    return 
+           "Payroll ID: " + getFinanceID() + "\n" +
+           "Transaction Type: " + getTransactionType() + "\n" + 
+           "Employee ID: " + getEmployeeID() + "\n" +
            "Employee Name: " + getEmployeeName() + "\n" + 
            "Employee Position: " + getPosition() + "\n" + 
            "Employee Daily Rate: " + getDailyRate() + "\n" +
            "Employee Working Days: " + getWorkingDays() + "\n" +
+           "Employee Gross Pay: " + getGrossPay() + "\n" +
            "Employee PhilHealth Contribution: " + getPhilHealth() + "\n" + 
            "Employee SSS Contribution: " + getSSS() + "\n" + 
            "Employee Pag-Ibig Contribution: " + getPagIbig() + "\n" + 
-           "Employee Net Pay: " + getTotalCost(); 
+           "Employee Net Pay: " + getTotalCost() + "\n"; 
 }
 
 
