@@ -81,12 +81,12 @@ public class PayrollRecord extends FinancialRecord{
           scan.nextLine();
         boolean isRunning = true;
         while (isRunning) {
-            PayrollRecord userRecord = (PayrollRecord) findRecord(scan);
-            if (userRecord == null) {
+            PayrollRecord payrollRecord = (PayrollRecord) findRecord(scan);
+            if (payrollRecord == null) {
                 System.out.println("Invalid Input, ID does not exist");
                 break;
             }
-          System.out.println("=== Edit Record ===");
+          System.out.println("=== Edit Payroll Record ===");
           System.out.println("1 - Transaction Date");
           System.out.println("2 - Status");
           System.out.println("3 - Employee Name");
@@ -99,42 +99,43 @@ public class PayrollRecord extends FinancialRecord{
             switch (choose) {
               case 1 : 
               String editTransactionDate = TransactionDate(scan);
-              userRecord.setDateOfTransaction(editTransactionDate);
+              payrollRecord.setDateOfTransaction(editTransactionDate);
               break;
               case 2 :
               System.out.print("Edit Status: ");
               String editStatus = scan.nextLine();
-              userRecord.setStatus(editStatus);
+              payrollRecord.setStatus(editStatus);
               break;
               case 3 :
                 System.out.print("Edit Employee Name: ");
                 String employeeName = scan.nextLine();
-                userRecord.setEmployeeName(employeeName);
+                payrollRecord.setEmployeeName(employeeName);
                 break;
               case 4 : 
                 System.out.print("Edit Employee Position: ");
                 String editPosition = scan.nextLine();
-                userRecord.setPosition(editPosition);
+                payrollRecord.setPosition(editPosition);
                 break;
               case 5 :
                 System.out.print("Edit Edit Working days: ");
                 int editWorkingDays = scan.nextInt();
-                userRecord.setWorkingDays(editWorkingDays);
-                userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
-                userRecord.computeNetPay(userRecord.getGrossPay(), userRecord.getSSS(), userRecord.getPhilHealth(), userRecord.getPhilHealth(), userRecord);
+                payrollRecord.setWorkingDays(editWorkingDays);
+                payrollRecord.computeGrossPay(payrollRecord.getDailyRate(), payrollRecord.getWorkingDays(), payrollRecord);
+                payrollRecord.computeNetPay(payrollRecord.getGrossPay(), payrollRecord.getSSS(), payrollRecord.getPhilHealth(), payrollRecord.getPhilHealth(), payrollRecord);
                 break;
               case 6 :
                 System.out.print("Edit Daily Rate: ");
-                int editDailyRate = scan.nextInt();
-                userRecord.setDailyRate(editDailyRate);
-                userRecord.computeGrossPay(userRecord.getDailyRate(), userRecord.getWorkingDays(), userRecord);
-                userRecord.computeNetPay(userRecord.getGrossPay(), userRecord.getSSS(), userRecord.getPhilHealth(), userRecord.getPagIbig(), userRecord);
+                double editDailyRate = scan.nextInt();
+                payrollRecord.setDailyRate(editDailyRate);
+                payrollRecord.computeGrossPay(payrollRecord.getDailyRate(), payrollRecord.getWorkingDays(), payrollRecord);
+                payrollRecord.computeNetPay(payrollRecord.getGrossPay(), payrollRecord.getSSS(), payrollRecord.getPhilHealth(), payrollRecord.getPagIbig(), payrollRecord);
                 break;
               case 7 :
                 isRunning = false;
                 break;
               default :
-              System.out.println("Invalid Input, Enter only from the choices given");
+                System.out.println("Invalid Input, Enter only from the choices given");
+                break;
             }
         }
     }
@@ -156,17 +157,7 @@ public class PayrollRecord extends FinancialRecord{
     }
     
 
-    public FinancialRecord findRecord(Scanner scan) {
-      
-            System.out.print("Enter the Payroll ID of user that you want to edit: ");
-            String findRecord = scan.nextLine();
-            for (FinancialRecord records : financeManager.getAllRecords()) {
-                if (records instanceof PayrollRecord && findRecord.equals(records.getFinanceID())) {
-                    return records;
-                }
-            }
-            return null;
-    }   
+
 
     
 

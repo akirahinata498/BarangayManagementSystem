@@ -14,9 +14,7 @@ public class ProcurementRecord extends FinancialRecord{
         setItem(item);
         setPurpose(purpose);
         setSupplier(supplier);
-        setUnitCost(unitCost);
-        setQuantity(quantity);
-
+        computeTotalCost(unitCost, quantity, this);
     }
 
     ProcurementRecord() {
@@ -38,6 +36,7 @@ public class ProcurementRecord extends FinancialRecord{
         System.out.print("Enter Item's Supplier: ");
         String itemSupplier = scan.nextLine();
         String transactionDate = TransactionDate(scan);
+        scan.nextLine();
         System.out.print("Enter Transaction Status: ");
         String status = scan.nextLine();
         ProcurementRecord procurementRecord = new ProcurementRecord(financeID, transactionDate, status, itemName, itemPurpose, itemSupplier, itemUnitCost, itemQuantity);
@@ -50,9 +49,8 @@ public class ProcurementRecord extends FinancialRecord{
              System.out.print("Enter the Procurement id that you want to delete: ");
         String procurementID = scan.nextLine();
         for (FinancialRecord financeRecord : financeManager.getAllRecords()) {
-            if (financeRecord instanceof FinancialRecord && procurementID.equals(financeRecord.getFinanceID())) {
+            if (financeRecord instanceof ProcurementRecord && procurementID.equals(financeRecord.getFinanceID())) {
                 financeManager.getAllRecords().remove(financeRecord);
-   
                 System.out.println("Record deleted Successfully");
                 break;
             }
@@ -69,11 +67,74 @@ public class ProcurementRecord extends FinancialRecord{
     }
     @Override
     public void editRecord(Scanner scan) {
-        
+        scan.nextLine();
+        boolean isRunning = true;
+        while (isRunning) {
+            ProcurementRecord procurementRecord = (ProcurementRecord) findRecord(scan);
+            if (procurementRecord == null) {
+                System.out.println("Invalid Input, ID does not exist.");
+                break;
+            }
+            System.out.println("=== Edit Procurement Record ===");
+            System.out.println("1 - Transaction Date");
+            System.out.println("2 - Status");
+            System.out.println("3 - Item Name");
+            System.out.println("4 - Item Purpose");
+            System.out.println("5 - Item Cost");
+            System.out.println("6 - Item Quantity");
+            System.out.println("7 - Item Supplier");
+            System.out.println("8 - Exit");
+            int choose = scan.nextInt();
+            scan.nextLine();
+            switch (choose) {
+                case 1 : 
+                    String transactionDate = TransactionDate(scan);
+                    procurementRecord.setDateOfTransaction(transactionDate);
+                    break;
+                case 2 :
+                    System.out.print("Edit Status: ");
+                    String editStatus = scan.nextLine();
+                    procurementRecord.setStatus(editStatus);
+                    break;
+                case 3 : 
+                    System.out.print("Edit Item Name: ");
+                    String editItemName = scan.nextLine();
+                    procurementRecord.setItem(editItemName);
+                    break;
+                case 4 :
+                    System.out.print("Edit Item Purpose: ");
+                    String editPurpose = scan.nextLine();
+                    procurementRecord.setPurpose(editPurpose);
+                    break;
+                case 5 :
+                    System.out.print("Edit Item Unit Cost: ");
+                    int editUnitCost = scan.nextInt();
+                    procurementRecord.computeTotalCost(editUnitCost, procurementRecord.getQuantity(), procurementRecord);
+                    break;
+                case 6 :
+                    System.out.print("Edit Item Quantity: ");
+                    int editQuantity = scan.nextInt();
+                    procurementRecord.computeTotalCost(procurementRecord.getUnitCost(), editQuantity, procurementRecord);
+                    break;
+                case 7 :
+                    System.out.print("Edit Item Supplier: ");
+                    String editSupplier = scan.nextLine();
+                    procurementRecord.setSupplier(editSupplier);
+                    break;
+                case 8 :
+                    isRunning = false;
+                    break;
+                default :
+                    System.out.println("Invalid Input, Enter only from the choices given.");
+                    break;
+            }
+        }
     }
 
-    public void computeProcurementCost() {
-        
+    public void computeTotalCost(double unitCost, int quantityCost, ProcurementRecord procurement) {
+        procurement.setUnitCost(unitCost);
+        procurement.setQuantity(quantityCost);
+         setTotalCost(procurement.getUnitCost() * procurement.getQuantity());
     }
 
     //getteres
@@ -123,6 +184,7 @@ public class ProcurementRecord extends FinancialRecord{
                "Quantity: " + getQuantity() + "\n" + 
                "Total Cost: " + getTotalCost() + "\n" +
                "Supplier: " + getSupplier() + "\n" + 
-               "Date of Transaction: " + getDateOfTransaction() + "\n"; 
+               "Date of Transaction: " + getDateOfTransaction() + "\n" +
+               "Transaction Status: " + getStatus() + "\n"; 
     }
 }   

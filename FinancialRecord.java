@@ -146,6 +146,22 @@ FinancialRecord() {
 	
 	return month + "-" + day + "-" +  year;
 	}
-
+    public FinancialRecord findRecord(Scanner scan) {
+      
+            System.out.print("Enter the Payroll ID of user that you want to edit: ");
+            String findRecord = scan.nextLine();
+            for (FinancialRecord records : financeManager.getAllRecords()) {
+                if (records instanceof PayrollRecord && findRecord.equals(records.getFinanceID())) {
+                    return records;
+                }
+                else if (records instanceof ProcurementRecord && findRecord.equals(records.getFinanceID())) {
+                    return records;
+                }
+                else if (records instanceof MaintenanceRecord && findRecord.equals(records.getFinanceID())) {
+                    return records;
+                }
+            }
+            return null;
+    }   
 
 }

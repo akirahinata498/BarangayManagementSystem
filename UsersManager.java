@@ -29,7 +29,7 @@ public class UsersManager {
             System.out.println("The input password are " + password);
             if (username.equals(users.getUsername()) && password.equals(users.getPassword())) {
                 System.out.println("Login Success");
-
+                isRunning = false;
                 System.out.println("The role are " + users.getRole());
                 if (users.getRole().equals("Resident")) {
                 ResidentMenu residentMenu = new ResidentMenu();

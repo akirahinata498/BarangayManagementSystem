@@ -15,9 +15,7 @@ public class MaintenanceRecord extends FinancialRecord{
         setMaintenance(maintenance);
         setDescription(description);
         setServiceProvider(serviceProvider);
-        setLaborCost(laborCost);
-        setMaterialsCost(materialsCost);
-        setTotalCost(getMaterialsCost() + getLaborCost());
+        computeTotalCost(materialsCost, laborCost, this);
     }
 
     MaintenanceRecord() {
@@ -45,9 +43,20 @@ public class MaintenanceRecord extends FinancialRecord{
         financeManager.addRecord(maintenanceRecord);
     }
 
+
+
     @Override
     public void deleteRecord(Scanner scan) {
-
+        scan.nextLine();
+             System.out.print("Enter the Procurement id that you want to delete: ");
+        String procurementID = scan.nextLine();
+        for (FinancialRecord financeRecord : financeManager.getAllRecords()) {
+            if (financeRecord instanceof MaintenanceRecord && procurementID.equals(financeRecord.getFinanceID())) {
+                financeManager.getAllRecords().remove(financeRecord);
+                System.out.println("Record deleted Successfully");
+                break;
+            }
+        }
     }
 
     @Override
@@ -61,9 +70,76 @@ public class MaintenanceRecord extends FinancialRecord{
 
     @Override
     public void editRecord(Scanner scan) {
-      
+        scan.nextLine();
+        boolean isRunning = true;
+        while (isRunning) {
+            MaintenanceRecord maintenanceRecord = (MaintenanceRecord) findRecord(scan);
+            if (maintenanceRecord == null) {
+                System.out.println("Invalid Input, ID does not Exist");
+                break;
+            }
+            System.out.println("=== Edit Maintenance Record ===");
+            System.out.println("1 - Transaction Date");
+            System.out.println("2 - Status");
+            System.out.println("3 - Maintenance Type");
+            System.out.println("4 - Maintenance Description");
+            System.out.println("5 - Service Provider");
+            System.out.println("6 - Materials Cost");
+            System.out.println("7 - Labor Cost");
+            System.out.println("8 - Exit");
+            int choose = scan.nextInt();
+            scan.nextLine();
+            switch (choose) {
+                case 1 : 
+                    String editTransactionDate = TransactionDate(scan);
+                    maintenanceRecord.setDateOfTransaction(editTransactionDate);
+                    break;
+                case 2 : 
+                    System.out.print("Edit Status: ");
+                    String editStatus = scan.nextLine();
+                    maintenanceRecord.setStatus(editStatus);
+                    break;
+                case 3 :
+                    System.out.print("Edit Maintenance Type: ");
+                    String editMaintenanceType = scan.nextLine();
+                    maintenanceRecord.setMaintenance(editMaintenanceType);
+                    break;
+                case 4 :
+                    System.out.print("Edit Maintenance Description:  ");
+                    String editMaintenanceDescription = scan.nextLine();
+                    maintenanceRecord.setDescription(editMaintenanceDescription);
+                    break;
+                case 5 :
+                    System.out.print("Edit Service Provider: ");
+                    String editServiceProvider = scan.nextLine();
+                    maintenanceRecord.setServiceProvider(editServiceProvider);
+                    break;
+                case 6 :
+                    System.out.print("Edit Materials Cost: ");
+                    double editMaterialsCost = scan.nextDouble();
+                    maintenanceRecord.computeTotalCost(editMaterialsCost, maintenanceRecord.getLaborCost(), maintenanceRecord);
+                    break;
+                case 7 :
+                    System.out.print("Edit Labor Cost: ");
+                    double editLaborCost = scan.nextDouble();
+                    maintenanceRecord.computeTotalCost(maintenanceRecord.getMaterialsCost(), editLaborCost, maintenanceRecord);
+                    break;
+                case 8 :
+                    isRunning = false;
+                    break;
+                default :
+                    System.out.println("Invalid Input, Please enter only from the choices given.");
+                    break;
+            }
+
+        }
     }
 
+       public void computeTotalCost(double materialsCost, double laborCost, MaintenanceRecord maintenance) {
+        maintenance.setMaterialsCost(materialsCost);
+        maintenance.setLaborCost(laborCost);
+        maintenance.setTotalCost(maintenance.getMaterialsCost() + maintenance.getLaborCost());
+    }
 
 
     //getters
