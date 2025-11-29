@@ -78,9 +78,6 @@ FinancialRecord() {
             else if (records instanceof ProcurementRecord) {
                 totalPayrollRecords++;
             }
-            else {
-                System.out.println("WTf");
-            }
         }
         totalPayrollRecords++;
         return totalPayrollRecords;
