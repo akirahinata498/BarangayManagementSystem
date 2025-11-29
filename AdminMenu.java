@@ -20,8 +20,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     @Override
     public void displayMenu() {
            System.out.println("=== Welcome " + userInfo.getUsername() + " ===");
-            System.out.println("1 - Resident Management");
-            System.out.println("2 - Certificate Management");
+            System.out.println("1 - Certificate Management");
             System.out.println("3 - Announcement Management");
             System.out.println("4 - Incident Report Management");
             System.out.println("5 - User & Account Management");
