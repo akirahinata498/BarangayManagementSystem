@@ -1,10 +1,14 @@
 package BarangayManagementSystem;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Announcement {
     private String announcementID;
     private String announcementContent;
     private String announcementTitle;
-    private String dateOfAnnouncement;
+    // private String dateOfAnnouncement;
+    private LocalDateTime dateOfAnnouncement;   
     private String postedBy;
     private String announcementReason;
     private String announcementConclusion;
@@ -12,11 +16,11 @@ public class Announcement {
     Announcement() {
     }
 
-    Announcement(String announcementID, String announcementContent, String announcementTitle, String dateOfAnnouncement, String postedBy, String announcementReason, String announcementConclusion) {
+    Announcement(String announcementID, String announcementContent, String announcementTitle,  String postedBy, String announcementReason, String announcementConclusion) {
         this.announcementID = announcementID;
         this.announcementContent = announcementContent;
         this.announcementTitle = announcementTitle;
-        this.dateOfAnnouncement = dateOfAnnouncement;
+        this.dateOfAnnouncement = LocalDateTime.now();
         this.postedBy = postedBy;
         this.announcementReason = announcementReason;
         this.announcementConclusion = announcementConclusion;
@@ -35,7 +39,7 @@ public String getAnnouncementTitle() {
     return announcementTitle;
 }
 
-public String getDateOfAnnouncement() {
+public LocalDateTime getDateOfAnnouncement() {
     return dateOfAnnouncement;
 }
 
@@ -61,7 +65,7 @@ public void setAnnouncementContent(String announcementContent) {
 public void setAnnouncementTitle(String annocementTitle) {
     this.announcementTitle = annocementTitle;
 }
-public void setDateOfAnnouncement(String dateOfAnnouncement) {
+public void setDateOfAnnouncement(LocalDateTime dateOfAnnouncement) {
     this.dateOfAnnouncement = dateOfAnnouncement;
 }
 public void setPostedBy(String postedBy) {
@@ -77,9 +81,10 @@ public void setAnnouncementConclusion(String announcementConclusion) {
 
 @Override
 public String toString(){ 
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy hh:mm a");
     return "======= Barangay San Dimas Officcial Announcement ==========" + "\n" +
             "Announcement ID: " + getAnnouncementID() + "\n" +
-            "Dated Posted: " + getDateOfAnnouncement() + "\n" +
+            "Dated Posted: " + getDateOfAnnouncement().format(formatter) + "\n" +
             "Posted By: " + getPostedBy() + "\n\n" +
             "Subject: " + getAnnouncementTitle() + "\n" +
             "Dear Citizens of San Dimas," + "\n\n" +

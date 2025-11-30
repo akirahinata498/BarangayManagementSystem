@@ -15,6 +15,7 @@ public class SystemSettingsManager {
     }
 
     public void updateBarangayInformation(Scanner sc) {
+        sc.nextLine();
         System.out.print("Enter new Barangay Name: ");
         barangayName = sc.nextLine();
 

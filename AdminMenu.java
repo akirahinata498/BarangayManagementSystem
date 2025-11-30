@@ -13,6 +13,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private AnnouncementManager announcementManager;
         private SystemLogsManager logsManager = new SystemLogsManager();
     private SystemSettingsManager settingsManager = new SystemSettingsManager();
+    private IncidentManager incidentManager;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
@@ -20,6 +21,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
         this.maintenanceRecord = new MaintenanceRecord();
         this.procurementRecord = new ProcurementRecord();
         this.announcementManager = AnnouncementManager.getInstance();
+        
     }
     @Override
     public void displayMenu() {
@@ -39,7 +41,9 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
       int userData = scan.nextInt();
       switch (userData) {
         case 2 -> displayAnnouncementMenu(scan);
-        case 5 -> userManagement.chooseUserToManage(scan);
+        case 4 -> userManagement.chooseUserToManage(scan);
+        case 5 -> systemLogsMenu(scan);
+        case 6 -> systemSettingsMenu(scan);
         case 8 -> ManageFinancialRecording(scan);
         case 9 -> {return isuserLogout(scan);}
         default -> System.out.println("Please enter a proper input");
@@ -141,5 +145,69 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
         }   
         }
     }
+
     
+       private void systemLogsMenu(Scanner scan) {
+        int choice;
+        do {
+            System.out.println("\n=== SYSTEM LOGS MENU ===");
+            System.out.println("1. View Login History");
+            System.out.println("2. View Activity Logs");
+            System.out.println("3. Back");
+            System.out.print("Enter choice: ");
+            choice = scan.nextInt();
+
+            switch (choice) {
+                case 1:
+                    logsManager.viewLoginHistory();
+                    break;
+                case 2:
+                    logsManager.viewActivityLogs();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 3);
+    }
+    
+
+
+        private void systemSettingsMenu(Scanner scan) {
+        int choice;
+        do {
+            System.out.println("\n=== SYSTEM SETTINGS MENU ===");
+            System.out.println("1. View Barangay Information");
+            System.out.println("2. Update Barangay Information");
+            System.out.println("3. Backup System");
+            System.out.println("4. Restore System");
+            System.out.println("5. Back");
+            System.out.print("Enter choice: ");
+            choice = scan.nextInt();
+
+            switch (choice) {
+                case 1:
+                    settingsManager.viewBarangayInformation();
+                    break;
+                case 2:
+                    settingsManager.updateBarangayInformation(scan);
+                    break;
+                case 3:
+                    settingsManager.backupSystem();
+                    break;
+                case 4:
+                    settingsManager.restoreSystem();
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 5);
+    }
+
+
+
+
 }

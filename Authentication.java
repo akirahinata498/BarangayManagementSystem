@@ -1,8 +1,8 @@
-package BarangayManagementSystem;
+// package BarangayManagementSystem;
 
 
-import java.util.Scanner;
+// import java.util.Scanner;
 
-public abstract class Authentication<T extends Users>  {
+// public abstract class Authentication<T extends Users>  {
     
-}
+// }
