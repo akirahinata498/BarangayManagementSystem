@@ -35,6 +35,7 @@ public class AnnouncementManager {
 			for (Announcement announcement : getAllAnnouncements()) {
 				if (deleteID.equals(announcement.getAnnouncementID())) {
 					getAllAnnouncements().remove(announcement);
+					System.out.println("Announcement Deleted Successfully");
 					break;
 				}
 			}

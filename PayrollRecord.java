@@ -58,6 +58,7 @@ public class PayrollRecord extends FinancialRecord{
     }
     @Override
     public void deleteRecord(Scanner scan) {
+            scan.nextLine();
         System.out.print("Enter the Payroll id that you want to delete: ");
         String deleteID = scan.nextLine();
         for (FinancialRecord financeRecord : financeManager.getAllRecords()) {

@@ -11,6 +11,8 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private MaintenanceRecord maintenanceRecord;
     private ProcurementRecord procurementRecord;
     private AnnouncementManager announcementManager;
+        private SystemLogsManager logsManager = new SystemLogsManager();
+    private SystemSettingsManager settingsManager = new SystemSettingsManager();
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
@@ -36,7 +38,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     public boolean chooseMenu(Scanner scan) {
       int userData = scan.nextInt();
       switch (userData) {
-        case 3 -> displayAnnouncementMenu(scan);
+        case 2 -> displayAnnouncementMenu(scan);
         case 5 -> userManagement.chooseUserToManage(scan);
         case 8 -> ManageFinancialRecording(scan);
         case 9 -> {return isuserLogout(scan);}
