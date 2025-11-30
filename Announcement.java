@@ -8,6 +8,7 @@ public class Announcement {
     private String postedBy;
     private String announcementReason;
     private String announcementConclusion;
+
     Announcement() {
     }
 
@@ -76,15 +77,17 @@ public void setAnnouncementConclusion(String announcementConclusion) {
 
 @Override
 public String toString(){ 
-    return "=== Barangay San Dimas Officcial Announcement ===" + "\n" +
+    return "======= Barangay San Dimas Officcial Announcement ==========" + "\n" +
+            "Announcement ID: " + getAnnouncementID() + "\n" +
             "Dated Posted: " + getDateOfAnnouncement() + "\n" +
-            "Posted By: " + getPostedBy() + "\n\n\n" +
+            "Posted By: " + getPostedBy() + "\n\n" +
             "Subject: " + getAnnouncementTitle() + "\n" +
-            "Dear Citizens of San Dimas," + "\n\n\n" +
-            wrapText(getAnnouncementContent(), 50) + "\n\n\n" +
-            wrapText(getAnnouncementReason(), 50) + "\n\n\n" + 
-            wrapText(getAnnouncementConclusion(), 50) + "\n\n\n" +
-            "Thank You";
+            "Dear Citizens of San Dimas," + "\n\n" +
+            wrapText(getAnnouncementContent(), 50) + "\n\n" +
+            "Reason: " + wrapText(getAnnouncementReason(), 50) + "\n\n" + 
+            wrapText(getAnnouncementConclusion(), 50) + "\n\n" +
+            "Thank You" + "\n\n" +
+            "========================================================" + "\n\n";
 }
 
 private String wrapText(String text, int maxWidth) {

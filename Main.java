@@ -7,5 +7,6 @@ public class Main {
         UsersManager usersManager = UsersManager.getInstance();
         LandingMenu landingMenu = new LandingMenu(usersManager);
         landingMenu.processMenu(scan);
+        
     }
 }
