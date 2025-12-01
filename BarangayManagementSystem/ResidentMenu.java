@@ -1,5 +1,6 @@
 package BarangayManagementSystem;
 
+import java.net.FileNameMap;
 import java.util.Scanner;
 
 public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
@@ -31,7 +32,7 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
         int userChoice = scan.nextInt();
         switch (userChoice) {
             case 3 -> certificateRequest.newRequest(scan, userInfo.getFname(), userInfo.getMname(), userInfo.getLname());
-            
+            case 4 -> certificateRequest.residentViewCertificate(userInfo.getFname(), userInfo.getMname(), userInfo.getLname());
             case 6 -> incidentManager.createNewIncident(scan);
             case 7 -> {return isuserLogout(scan);}
             default -> System.out.println("Please enter a proper input");

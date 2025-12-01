@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 public class CertificateManager {
     private CertificateRequestStorage certificateRequestStorage;
-    
+    private CertificateStatus certificateStatus;
 
     CertificateManager() {
         this.certificateRequestStorage = CertificateRequestStorage.getInstance();
+        this.certificateStatus = new CertificateStatus();
     }
 
     public void viewAllPendingRequest() {
@@ -23,17 +24,24 @@ public class CertificateManager {
                     }
     }
 
-    public void approveRequest(Scanner scan) {
+    public void editStatusRequest(Scanner scan, String statusRequest) {
                     System.out.print("Enter the Request ID that you want to edit: ");
                     String approveRequest = scan.nextLine();
                     
                 for (CertificateRequest certificateRequest : certificateRequestStorage.getAllRequests()) {
-                    if (certificateRequestStorage.getAllRequests().isEmpty()) {
-                        System.out.println("No requests found.");
+                    if (approveRequest.equals(certificateRequest.getId())) {
+                        certificateRequest.setStatus(statusRequest);
+                        if (certificateRequest.getStatus().equals("Rejected")) {
+                            System.out.print("Enter the reason for rejecting certificate: ");
+                            String rejectReason = scan.nextLine();
+                            certificateRequest.setReason(rejectReason);
+                        }
                         break;
                      }
                 }
     }
+
+    
 
     public void newRequest(Scanner scan, String fname, String mname, String lname) {
         System.out.println("=== Certificate Request System ===");
@@ -51,10 +59,17 @@ public class CertificateManager {
         if (myRequests.isEmpty()) System.out.println("No requests found for " + fullName);
         else {
             System.out.println("\n--- YOUR REQUESTS ---");
-            for (CertificateRequest r : myRequests) System.out.println(r);
+            for (CertificateRequest r : myRequests) {
+                switch (r.getStatus()) {
+                    case "Pending" ->  certificateStatus.pendingCertificate(r);
+                    case "Approved" -> certificateStatus.approvedCertificate(r);
+                    case "Dismissed" -> certificateStatus.dismissedCertificate(r);
+                }
+            } 
         }
     }
 
+        
 
     public void adminCertificateManagement(Scanner scan) {
         boolean isRunning = true;
@@ -67,8 +82,10 @@ public class CertificateManager {
             int choose = scan.nextInt();
             switch (choose) {
                case 1 -> viewAllPendingRequest();
-                case 2 ->  approveRequest(scan);
-
+               case 2 -> editStatusRequest(scan, "Approved");
+               case 3 -> editStatusRequest(scan, "Dismissed");
+               case 4 -> isRunning = false;
+               default -> System.out.println("Invalid Input, Please enter only from the choices given");
             }
         }
     }

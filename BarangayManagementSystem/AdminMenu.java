@@ -14,12 +14,14 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
         private SystemLogsManager logsManager = new SystemLogsManager();
     private SystemSettingsManager settingsManager = new SystemSettingsManager();
     private IncidentManager incidentManager;
+    private CertificateManager certificateMananager;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
         this.userManagement = new UserAccountManagement<>(getUserInfo());
         this.payrollRecord = new PayrollRecord();
         this.maintenanceRecord = new MaintenanceRecord();
         this.procurementRecord = new ProcurementRecord();
+        this.certificateMananager = new CertificateManager();
         this.announcementManager = AnnouncementManager.getInstance();
         
     }
@@ -40,12 +42,14 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     public boolean chooseMenu(Scanner scan) {
       int userData = scan.nextInt();
       switch (userData) {
+        case 1 -> certificateMananager.adminCertificateManagement(scan);
         case 2 -> displayAnnouncementMenu(scan);
+        case 3 -> incidentManager.incidentReportMenu(scan);
         case 4 -> userManagement.chooseUserToManage(scan);
         case 5 -> systemLogsMenu(scan);
         case 6 -> systemSettingsMenu(scan);
-        case 8 -> ManageFinancialRecording(scan);
-        case 9 -> {return isuserLogout(scan);}
+        case 7 -> ManageFinancialRecording(scan);
+        case 8 -> {return isuserLogout(scan);}
         default -> System.out.println("Please enter a proper input");
       }
       return true;

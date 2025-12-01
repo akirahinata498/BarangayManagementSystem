@@ -7,6 +7,7 @@ import java.util.List;
 public class CertificateRequestStorage {
     private List<CertificateRequest> requests = new ArrayList<>();
     private static CertificateRequestStorage single_instance = null;
+    
     private int nextId;
      private LocalDate today = LocalDate.now();
       private int year = today.getYear();
