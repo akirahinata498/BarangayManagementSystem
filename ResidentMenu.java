@@ -6,14 +6,17 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     private UsersManager usersManager;
     private Residents userInfo;
     private boolean userValidation;
+    private IncidentManager incidentManager;
+    private CertificateManager certificateRequest;
     
     ResidentMenu() {
         this.usersManager = UsersManager.getInstance();
+        incidentManager = new IncidentManager();
     }
     @Override
     public void displayMenu() {
         
-       System.out.println("=== Welcome " + userInfo.getUsername() + " ===");
+        System.out.println("=== Welcome " + userInfo.getUsername() + " ===");
         System.out.println("1 - View Profile");
         System.out.println("2 - Update Profile");
         System.out.println("3 - Request Certificate");
@@ -27,8 +30,10 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     public boolean chooseMenu(Scanner scan) {
         int userChoice = scan.nextInt();
         switch (userChoice) {
+            case 3 -> certificateRequest.newRequest(scan, userInfo.getFname(), userInfo.getMname(), userInfo.getLname());
             
-            case  7 -> {return isuserLogout(scan);}
+            case 6 -> incidentManager.createNewIncident(scan);
+            case 7 -> {return isuserLogout(scan);}
             default -> System.out.println("Please enter a proper input");
         }
         return true;

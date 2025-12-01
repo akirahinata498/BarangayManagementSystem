@@ -46,8 +46,8 @@ public class IncidentManager {
     }
  
 
-    private void createNewIncident(Scanner scan) {
-        
+        public void createNewIncident(Scanner scan) {
+        scan.nextLine();
         String incidentId = "INC-" + year + "-" + String.format("%05d", (incidentStorage.getAllIncidents().size() + 1));
         System.out.print("Enter title: ");
         String title = scan.nextLine();
