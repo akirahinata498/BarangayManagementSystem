@@ -1,5 +1,6 @@
 package BarangayManagementSystem;
 
+import java.lang.classfile.instruction.ReturnInstruction;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
@@ -56,13 +57,23 @@ public class UsersManager {
     }
 
     public void deleteProfile(Scanner scan, String role) {
-        
+        System.out.print("Enter the usename of the " + role + "that you want to delete: ");
+        Users userDelete = chooseUserInfo(scan, role);
+        if (userDelete == null) {
+            System.out.println("User does not exist");
+            return;
+        }
+        usersData.remove(userDelete);
     }
 
     public void editProfile(Scanner scan, String role) {
         boolean isRunning = true;
         System.out.println("The role are " + role);
         Users userEdit = chooseUserInfo(scan, role);
+        if (userEdit == null) {
+            System.out.println("User does not exist");
+            return;
+        }
         Validations validation = new Validations();
         System.out.println((userEdit instanceof Residents resident) ? resident : "test");
         while (isRunning) {
@@ -84,7 +95,6 @@ public class UsersManager {
             System.out.println("0 - Exit");
             int choose = scan.nextInt();
             scan.nextLine();
-         
             switch (choose) {
                 case 1 :
                     System.out.print("Edit your Username");
@@ -161,24 +171,15 @@ public class UsersManager {
 
 
             public Users chooseUserInfo(Scanner scan, String role) {
-            while (true) {
-                boolean isFound = false;
-                System.out.println("The role are " + role);
-                  System.out.println("The length are " + getAllUsers().size());
+           
                 System.out.println("Enter the username of user that you want to manage");
                 String username = scan.nextLine();
                 for (Users users : getAllUsers()) {
-                    System.out.println(username);
-                    System.out.println(users.getUsername());
                     if (users.getRole().equals(role) && users.getUsername().equals(username)) {
-                    System.out.println("Is chosen " + users.getUsername());
                     return users;
                     }
                 }
-                if (!isFound) {
-                    System.out.println("Please username only from the choices given.");
-                }
-            }
+           return null;
         }
 
 

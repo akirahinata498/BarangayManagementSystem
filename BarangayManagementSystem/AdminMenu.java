@@ -22,6 +22,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
         this.maintenanceRecord = new MaintenanceRecord();
         this.procurementRecord = new ProcurementRecord();
         this.certificateMananager = new CertificateManager();
+        this.incidentManager = new IncidentManager();
         this.announcementManager = AnnouncementManager.getInstance();
         
     }
@@ -137,8 +138,8 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
         System.out.println("4 - Display New Announcement");
         System.out.println("5 - Display All Announcement");
         System.out.println("6 - Exit");
-        int chcooe = scan.nextInt();
-        switch (chcooe) {
+        int choose = scan.nextInt();
+        switch (choose) {
             case 1 -> announcementManager.addAnnouncement(scan, userInfo.getUsername());
             case 2 -> announcementManager.editAnnouncement(scan);
             case 3 -> announcementManager.deleteAnnouncement(scan);

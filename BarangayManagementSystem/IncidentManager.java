@@ -14,6 +14,7 @@ public class IncidentManager {
     private int year = today.getYear();
     IncidentManager() {
         this.incidentStorage = IncidentStorage.getInstance();
+        this.archieveStorage = ArchieveStorage.getInstance();
     }
 
 
@@ -46,17 +47,16 @@ public class IncidentManager {
     }
  
 
-        public void createNewIncident(Scanner scan) {
+        public void createNewIncident(Scanner scan, String fname, String lname) {
         scan.nextLine();
         String incidentId = "INC-" + year + "-" + String.format("%05d", (incidentStorage.getAllIncidents().size() + 1));
         System.out.print("Enter title: ");
         String title = scan.nextLine();
         System.out.print("Enter description: ");
         String description = scan.nextLine();
-        System.out.print("Enter your name: ");
-        String reporter = scan.nextLine();
+        String fullName = fname + " " + lname; 
         String status = "Pending";
-        IncidentReport incident = new IncidentReport(incidentId, title, description, reporter, status);
+        IncidentReport incident = new IncidentReport(incidentId, title, description, fullName, status);
         incidentStorage.addIncident(incident);
         System.out.println("Incident created successfully!");
         System.out.println(incident);
@@ -65,7 +65,6 @@ public class IncidentManager {
     private IncidentReport searchIncidentById(Scanner scan, String typeOfRecord) {
         System.out.print("Enter Incident ID to search: ");
         String id = scan.nextLine();
-        scan.nextLine();
         IncidentReport report = (typeOfRecord.equals("CurrentIncident")) ? incidentStorage.findById(id) : archieveStorage.findById(id);
         if (report != null) {
             return report;
@@ -107,8 +106,7 @@ public class IncidentManager {
 
 
     public void arhieveReports(Scanner scan) {
-        boolean isRunning=  true;
-        while (isRunning) {
+
             System.out.print("Enter the Incident Id that you want to archieve: ");
             String incidentID = scan.nextLine();
             for (IncidentReport incidents : incidentStorage.getAllIncidents()) {
@@ -120,10 +118,10 @@ public class IncidentManager {
                    else {
                     System.out.println("Report Successfully Archieve.");
                     archieveStorage.addArchieve(incidents);
+                    incidentStorage.getAllIncidents().remove(incidents);
                     break;
                    }
                 }
-            }
         }
     }
     
@@ -165,6 +163,7 @@ public class IncidentManager {
             System.out.println("8 - Archieve Reports");
             System.out.println("9 - Exit");
             int choose = scan.nextInt();
+            scan.nextLine();
             switch (choose) {
                 case 1 -> displayAllCurrentIncidentReports();
                 case 2 -> searchIncidentsByReporter(scan, "CurrentIncident");

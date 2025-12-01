@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ArchieveStorage {
         private List<IncidentReport> archieveIncidents = new ArrayList<>();
-    private static IncidentStorage single_instance = null;
+    private static ArchieveStorage single_instance = null;
         public void addArchieve (IncidentReport incidentReport) {
             archieveIncidents.add(incidentReport);
         }
@@ -14,9 +14,9 @@ public class ArchieveStorage {
             return archieveIncidents;
         }
 
-        public static synchronized IncidentStorage getInstance() {
+        public static synchronized ArchieveStorage getInstance() {
         if (single_instance == null) {
-            single_instance = new IncidentStorage();
+            single_instance = new ArchieveStorage();
         }
         return single_instance;
     }
