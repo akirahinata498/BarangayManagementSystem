@@ -1,16 +1,15 @@
 package BarangayManagementSystem;
 import java.util.Scanner;
-public class UserAccountManagement<T extends Users> {
+public class UserAccountManagement {
     
 
     private AdminRegister adminRegister;
     private ResidentRegister residentRegister;
-    private T usersInfo;
+   
     private UsersManager userManager;
-    UserAccountManagement(T usersInfo) {
+    UserAccountManagement() {
         this.userManager = UsersManager.getInstance();
-        this.usersInfo = usersInfo;
-
+       
         this.adminRegister = new AdminRegister();
         this.residentRegister = new ResidentRegister();
     }
@@ -46,7 +45,7 @@ public class UserAccountManagement<T extends Users> {
                         Admin admin = new Admin();
                         adminRegister.processUserInfo(scan, admin, "Admin");
                     } 
-                    case 2 -> userManager.editProfile(scan,  "Admin");
+                    case 2 -> userManager.editProfile(scan,  "Admin", userManager.chooseUserInfo(scan, "Admin"));
                     case 3 -> userManager.deleteProfile(scan, "Admin");
                     case 4 -> displayUsers("Admin");
                     case 5 -> isRunning = false;
@@ -72,7 +71,7 @@ public class UserAccountManagement<T extends Users> {
                      Residents resident = new Residents();
                      residentRegister.processUserInfo(scan, resident, "Resident");
                 }
-                case 2 -> userManager.editProfile(scan,  "Resident");
+                case 2 -> userManager.editProfile(scan,  "Resident", userManager.chooseUserInfo(scan, "Resident"));
                 case 3 -> userManager.deleteProfile(scan, "Resident");
                 case 4 -> displayUsers("Resident");
                 case 5 -> isRunning = false;

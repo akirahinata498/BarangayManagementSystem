@@ -57,12 +57,11 @@ public class AnnouncementManager {
 
         public void editAnnouncement(Scanner scan) {
 			scan.nextLine();
-            boolean isRunning = true;
-			while (isRunning) {
+        
 				Announcement announcement = findAnnouncement(scan);
 				if (announcement == null) {
 					System.out.println("Invalid Input, Announcement ID does not Exist.");
-					break;
+					return;
 				}
 				System.out.println("=== Edit Announcement");
 				System.out.println("1 - Announcement Title");
@@ -71,6 +70,7 @@ public class AnnouncementManager {
 				System.out.println("4 - Announcement Conclusion");
 				System.out.println("5 - Exit");
 				int choose = scan.nextInt();
+				scan.nextLine();
 				switch (choose) {
 					case 1 :
 						System.out.print("Edit Announcement Title: ");
@@ -93,13 +93,13 @@ public class AnnouncementManager {
 						announcement.setAnnouncementConclusion(editAnnouncementConclusion);
 						break;
 					case 5 :
-						isRunning = false;
+						
 						break;
 					default :
 						System.out.println("Invalid Input, Please only from the choices given.");
 						break;
 				}
-			}
+			
         }
 
 

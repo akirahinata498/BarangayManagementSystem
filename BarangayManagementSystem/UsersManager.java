@@ -66,11 +66,12 @@ public class UsersManager {
         usersData.remove(userDelete);
     }
 
-    public void editProfile(Scanner scan, String role) {
+    public void editProfile(Scanner scan, String role, Users userPassed) {
         scan.nextLine();
         boolean isRunning = true;
         System.out.println("The role are " + role);
-        Users userEdit = chooseUserInfo(scan, role);
+        // chooseUserInfo(scan, role)
+        Users userEdit = userPassed;
         if (userEdit == null) {
             System.out.println("User does not exist");
             return;

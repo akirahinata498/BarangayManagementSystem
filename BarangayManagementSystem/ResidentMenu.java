@@ -9,11 +9,12 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     private boolean userValidation;
     private IncidentManager incidentManager;
     private CertificateManager certificateRequest;
-    
+    private UserAnnouncementViewer userAnnouncementViewer;
     ResidentMenu() {
         this.usersManager = UsersManager.getInstance();
         incidentManager = new IncidentManager();
         this.certificateRequest = new CertificateManager();
+        this.userAnnouncementViewer = new UserAnnouncementViewer();
     }
     @Override
     public void displayMenu() {
@@ -32,8 +33,11 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     public boolean chooseMenu(Scanner scan) {
         int userChoice = scan.nextInt();
         switch (userChoice) {
+            case 1 -> System.out.println(userInfo);
+            case 2 -> usersManager.editProfile(scan, "Resident", usersManager.chooseUserInfo(scan, "Resident"));
             case 3 -> certificateRequest.newRequest(scan, userInfo.getFname(), userInfo.getMname(), userInfo.getLname());
             case 4 -> certificateRequest.residentViewCertificate(userInfo.getFname(), userInfo.getMname(), userInfo.getLname());
+            case 5 -> userAnnouncementViewer.viewBarangayAnnouncements(scan);
             case 6 -> incidentManager.createNewIncident(scan, userInfo.getFname(), userInfo.getLname());
             case 7 -> {return isuserLogout(scan);}
             default -> System.out.println("Please enter a proper input");

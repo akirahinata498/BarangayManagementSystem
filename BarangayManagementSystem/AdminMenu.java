@@ -6,7 +6,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private UsersManager usersManager;
     private Admin userInfo;
     private boolean userValidation;
-    private UserAccountManagement<Admin> userManagement;
+    private UserAccountManagement userManagement;
     private PayrollRecord payrollRecord;
     private MaintenanceRecord maintenanceRecord;
     private ProcurementRecord procurementRecord;
@@ -17,7 +17,7 @@ public class AdminMenu extends BaseMenu implements MenuValidation<Admin>{
     private CertificateManager certificateMananager;
     AdminMenu() {
         this.usersManager = UsersManager.getInstance();
-        this.userManagement = new UserAccountManagement<>(getUserInfo());
+        this.userManagement = new UserAccountManagement();
         this.payrollRecord = new PayrollRecord();
         this.maintenanceRecord = new MaintenanceRecord();
         this.procurementRecord = new ProcurementRecord();
