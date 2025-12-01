@@ -57,7 +57,7 @@ public class UsersManager {
     }
 
     public void deleteProfile(Scanner scan, String role) {
-        System.out.print("Enter the usename of the " + role + "that you want to delete: ");
+        scan.nextLine();
         Users userDelete = chooseUserInfo(scan, role);
         if (userDelete == null) {
             System.out.println("User does not exist");
@@ -67,6 +67,7 @@ public class UsersManager {
     }
 
     public void editProfile(Scanner scan, String role) {
+        scan.nextLine();
         boolean isRunning = true;
         System.out.println("The role are " + role);
         Users userEdit = chooseUserInfo(scan, role);

@@ -2,8 +2,7 @@ package BarangayManagementSystem;
 import java.util.Scanner;
 public class UserAccountManagement<T extends Users> {
     
-    private Admin admin;
-    private Residents resident;
+
     private AdminRegister adminRegister;
     private ResidentRegister residentRegister;
     private T usersInfo;
@@ -11,8 +10,9 @@ public class UserAccountManagement<T extends Users> {
     UserAccountManagement(T usersInfo) {
         this.userManager = UsersManager.getInstance();
         this.usersInfo = usersInfo;
-        admin = new Admin();
-        resident = new Residents();
+
+        this.adminRegister = new AdminRegister();
+        this.residentRegister = new ResidentRegister();
     }
 
         public void chooseUserToManage(Scanner scan) {
@@ -39,12 +39,16 @@ public class UserAccountManagement<T extends Users> {
             System.out.println("2 - Edit Admin");
             System.out.println("3 - Delete Admin");
             System.out.println("4 - View All Admin");
-            System.out.println("4 - Exit");   
+            System.out.println("5 - Exit");   
             int userChoice = scan.nextInt();
                 switch (userChoice) {
-                    case 1 -> adminRegister.registerUser(scan, admin, "Admin");
+                    case 1 -> {
+                        Admin admin = new Admin();
+                        adminRegister.processUserInfo(scan, admin, "Admin");
+                    } 
                     case 2 -> userManager.editProfile(scan,  "Admin");
                     case 3 -> userManager.deleteProfile(scan, "Admin");
+                    case 4 -> displayUsers("Admin");
                     case 5 -> isRunning = false;
                     default -> System.out.println("Invalid Input. Please try again");
                 }
@@ -55,6 +59,7 @@ public class UserAccountManagement<T extends Users> {
 
               boolean isRunning = true;
             while (isRunning) {
+               
             System.out.println("Enter your choice");
             System.out.println("1 - Add Residents");
             System.out.println("2 - Edit Residents");
@@ -63,15 +68,29 @@ public class UserAccountManagement<T extends Users> {
             System.out.println("5 - Exit");
             int userChoice = scan.nextInt();
             switch (userChoice) {
-                case 1 -> residentRegister.registerUser(scan, resident, "Resident");
+                case 1 -> {
+                     Residents resident = new Residents();
+                     residentRegister.processUserInfo(scan, resident, "Resident");
+                }
                 case 2 -> userManager.editProfile(scan,  "Resident");
                 case 3 -> userManager.deleteProfile(scan, "Resident");
+                case 4 -> displayUsers("Resident");
                 case 5 -> isRunning = false;
                 default -> System.out.println("Invalid Input. Please try again");
             }
             }
         }
 
+        public void displayUsers(String role) {
+            for (Users user : userManager.getAllUsers()) {
+                if (user instanceof Residents resident && role.equals(user.getRole())) {
+                    System.out.println(resident);
+                }
+                else if (user instanceof Admin admin && role.equals(user.getRole())) {
+                    System.out.println(admin + "\n");
+                }
+            }
+        }
 
 
 }

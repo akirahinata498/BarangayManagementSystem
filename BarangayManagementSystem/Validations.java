@@ -47,7 +47,7 @@ public class Validations {
          System.out.print("Enter your age: ");
           age = scan.nextInt();
         if (age <= 17 || age >= 150) {
-            System.out.print("Please enter a proper age: ");
+            System.out.println("Please enter a proper age: ");
         }
         else {
             isRunning = false;

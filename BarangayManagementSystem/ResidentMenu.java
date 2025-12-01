@@ -13,6 +13,7 @@ public class ResidentMenu extends BaseMenu implements MenuValidation<Residents>{
     ResidentMenu() {
         this.usersManager = UsersManager.getInstance();
         incidentManager = new IncidentManager();
+        this.certificateRequest = new CertificateManager();
     }
     @Override
     public void displayMenu() {

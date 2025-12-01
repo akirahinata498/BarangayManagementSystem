@@ -16,9 +16,9 @@ public class CertificateRequestStorage {
     }
 
    
-    public CertificateRequest createRequest(String name, String type, String purpose) {
+    public CertificateRequest createRequest(String name,  String purpose) {
         String requestID = "CRI-" + year + "-" + String.format("%05d", (requests.size() + 1));
-        CertificateRequest request = new CertificateRequest(requestID, name, type, purpose);
+        CertificateRequest request = new CertificateRequest(requestID, name, purpose);
         requests.add(request);
         return request;
     }

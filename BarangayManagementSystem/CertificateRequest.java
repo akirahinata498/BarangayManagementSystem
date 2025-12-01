@@ -12,13 +12,13 @@ public class CertificateRequest {
     private String status;
     private String reason;
 
-    public CertificateRequest(String id, String name, String certificateType, String purpose) {
+    public CertificateRequest(String id, String name,  String purpose) {
         this.id = id;
         this.name = name;
-        this.certificateType = certificateType;
+        this.certificateType = "Barangay Clearance";
         this.purpose = purpose;
         this.dateCreated = LocalDateTime.now();
-        this.status = "Pending Approval";   
+        this.status = "Pending";   
     }
 //getters
     public String getId() { return id; }

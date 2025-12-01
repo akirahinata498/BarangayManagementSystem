@@ -18,8 +18,11 @@ public abstract class RegisterSystem<T extends Users, M extends MenuValidation<T
         userRegister.setRole(role);
     }
 
-    public void saveUser(Scanner scan, T registeredUser, M redirectMenu) {
+    public void saveUser(T registeredUser) {
         userManager.addUser(registeredUser);
+    }
+
+    public void displayUserMenu(Scanner scan, T registeredUser,M redirectMenu) {
         redirectMenu.CheckUserAuth(registeredUser);
         redirectMenu.processMenu(scan); 
     }
@@ -35,5 +38,5 @@ public abstract class RegisterSystem<T extends Users, M extends MenuValidation<T
     //            ", Gender=" + user.getGender() +
     //            ", Campus=" + user.getCampus();
     // }
-	
+	public abstract void processUserInfo(Scanner scan, T userRegister, String role);
 }

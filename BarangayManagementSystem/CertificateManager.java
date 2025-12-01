@@ -18,20 +18,21 @@ public class CertificateManager {
                     return;
                  }
                     for (CertificateRequest certificateRequest : certificateRequestStorage.getAllRequests()) {
-                        if (certificateRequest.getStatus().equals("Pending Approval")) {
+                        if (certificateRequest.getStatus().equals("Pending")) {
                             System.out.println(certificateRequest);
                         }
                     }
     }
 
     public void editStatusRequest(Scanner scan, String statusRequest) {
+                scan.nextLine();
                     System.out.print("Enter the Request ID that you want to edit: ");
                     String approveRequest = scan.nextLine();
                     
                 for (CertificateRequest certificateRequest : certificateRequestStorage.getAllRequests()) {
                     if (approveRequest.equals(certificateRequest.getId())) {
                         certificateRequest.setStatus(statusRequest);
-                        if (certificateRequest.getStatus().equals("Rejected")) {
+                        if (certificateRequest.getStatus().equals("Dismissed")) {
                             System.out.print("Enter the reason for rejecting certificate: ");
                             String rejectReason = scan.nextLine();
                             certificateRequest.setReason(rejectReason);
@@ -44,12 +45,12 @@ public class CertificateManager {
     
 
     public void newRequest(Scanner scan, String fname, String mname, String lname) {
+        scan.nextLine();
         System.out.println("=== Certificate Request System ===");
         System.out.println("Enter your Purpose");
         String purpose = scan.nextLine();
-        String fullName = fname + " " + mname + " " + "lname";
-        String certificateType = scan.nextLine();
-        certificateRequestStorage.createRequest(fullName, certificateType, purpose);
+        String fullName = fname + " " + mname + " " + lname;
+        certificateRequestStorage.createRequest(fullName, purpose);
         System.out.println("\nRequest Created Successfully");
     }
 

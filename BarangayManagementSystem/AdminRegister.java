@@ -4,12 +4,19 @@ import java.util.Scanner;
 
 public class AdminRegister extends RegisterSystem<Admin, AdminMenu>{
 
-
+        @Override
         public void registerUser(Scanner scan, Admin userRegister, String role) {
-            super.registerUser(scan, userRegister, role);
-            userRegister.setAccessLevel("Admin");
+            processUserInfo(scan, userRegister, role);
             AdminMenu adminMenu = new AdminMenu();
-            saveUser(scan, userRegister, adminMenu);
+            displayUserMenu(scan, userRegister, adminMenu);
+    }
+
+
+    @Override
+    public void processUserInfo(Scanner scan, Admin userRegister, String role) {
+        super.registerUser(scan, userRegister, role);
+            userRegister.setAccessLevel("Admin");
+            saveUser(userRegister);
     }
 
 }
